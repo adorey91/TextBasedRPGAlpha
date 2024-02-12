@@ -7,8 +7,12 @@ namespace RPGAlpha_AdrianDorey
 {
     internal class BuildMap
     {
-        private char[,] mapContent;
+        public MapExtras mapExtras;
 
+        public int mapLevel;
+       
+        private char[,] mapContent;
+        
         public char[,] MapContent
         {
             get { return mapContent; }
@@ -16,7 +20,13 @@ namespace RPGAlpha_AdrianDorey
 
         public void MapInit() // initializes map from file to map content
         {
-            string[] lines = File.ReadAllLines("Map.txt");
+            string[] lines;
+
+            if (mapLevel == 0)
+                lines = File.ReadAllLines("Map.txt");
+            else if (mapLevel == 1)
+                lines = File.ReadAllLines("Map2.txt");
+
             mapContent = new char[lines.Length, lines[0].Length];
 
             for (int i = 0; i < lines.Length; i++)
@@ -33,7 +43,7 @@ namespace RPGAlpha_AdrianDorey
                 for (int j = 0; j < mapContent.GetLength(1); j++)
                 {
                     char characterToDraw = GetCharacterToDraw(i, j, Hero, Badman1, Badman2, money1, money2, potion1, potion2, trap);
-                    MapColor(characterToDraw);
+                    mapExtras.MapColor(characterToDraw);
                     Console.Write(characterToDraw);
                     Console.ResetColor();
                 }
@@ -71,75 +81,17 @@ namespace RPGAlpha_AdrianDorey
                 return mapContent[i, j];
         }
 
-        public bool CheckBoundaries(int x, int y) //handles player avoiding boundaries & water
+        public bool CheckBoundaries(int x, int y) //handles player avoiding boundaries & water & mountains
         {
-            return x >= 0 && x < mapContent.GetLength(1) && y >= 0 && y < mapContent.GetLength(0) && mapContent[y, x] != '#' && mapContent[y, x] != '~';
+            return x >= 0 && x < mapContent.GetLength(1) && y >= 0 && y < mapContent.GetLength(0) && 
+                mapContent[y, x] != '#' && mapContent[y, x] != '~' && mapContent[y,x] != '^';
         }
 
-        public bool CheckPoisonFloor(int x, int y)
+        public bool CheckPoisonFloor(int x, int y) // checks for poison spills
         {
             return mapContent[y, x] == 'P';
         }
         
-
-        public void MapColor(char c)    // handles map color
-        {
-            switch (c)
-            {
-                case '#':
-                    Console.ForegroundColor = ConsoleColor.DarkGray;
-                    Console.BackgroundColor = ConsoleColor.DarkGray;
-                    break;
-                case 'P':
-                    Console.ForegroundColor = ConsoleColor.Green;
-                    Console.BackgroundColor = ConsoleColor.DarkGreen;
-                    break;
-                case '~':
-                    Console.ForegroundColor = ConsoleColor.Blue;
-                    Console.BackgroundColor = ConsoleColor.DarkBlue;
-                    break;
-                case '$':
-                    Console.ForegroundColor = ConsoleColor.Black;
-                    Console.BackgroundColor = ConsoleColor.Green;
-                    break;
-                case 'E':
-                    Console.ForegroundColor = ConsoleColor.Magenta;
-                    Console.BackgroundColor = ConsoleColor.Black;
-                    break;
-                case 'T':
-                    Console.ForegroundColor = ConsoleColor.DarkCyan;
-                    Console.BackgroundColor = ConsoleColor.Black;
-                    break;
-
-                case 'H':
-                    Console.ForegroundColor = ConsoleColor.Blue;
-                    break;
-                case 'δ':
-                    Console.ForegroundColor = ConsoleColor.Red;
-                    break;
-            }
-        }
-
-        public void DisplayLegend() // displays legend on the bottom of the map.
-        {
-            Console.WriteLine("Map Legend:");
-
-            DisplaySymbol('H', "Hero (Player)");
-            DisplaySymbol('E', "Enemies");
-            DisplaySymbol('$', "Money");
-            DisplaySymbol('δ', "Potion");
-            DisplaySymbol('T', "Trap");
-            DisplaySymbol('~', "Deep Water");
-            DisplaySymbol('P', "Poison Spill");
-            DisplaySymbol('#', "Walls");
-        }
-
-        private void DisplaySymbol(char symbol, string description)
-        {
-            MapColor(symbol);
-            Console.Write(symbol);
-            Console.ResetColor();
-            Console.WriteLine($" = {description}");
-        }
+        
     }
 }

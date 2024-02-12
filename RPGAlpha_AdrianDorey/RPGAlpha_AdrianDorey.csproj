@@ -62,20 +62,25 @@
     <Compile Include="Enemy.cs" />
     <Compile Include="GameEntity.cs" />
     <Compile Include="GameLog.cs" />
+    <Compile Include="GameManager.cs" />
     <Compile Include="GameObject.cs" />
     <Compile Include="HealthSystem.cs" />
     <Compile Include="HUD.cs" />
     <Compile Include="Item.cs" />
+    <Compile Include="MageEnemy.cs" />
+    <Compile Include="MapExtras.cs" />
+    <Compile Include="MeleeEnemy.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="Point2D.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RangedEnemy.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="map.txt">
+    <EmbeddedResource Include="Map1.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
   </ItemGroup>
@@ -90,6 +95,16 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Map2.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Map3.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

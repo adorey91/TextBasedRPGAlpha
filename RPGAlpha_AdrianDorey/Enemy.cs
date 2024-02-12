@@ -18,11 +18,9 @@ namespace RPGAlpha_AdrianDorey
         private int newX;
         private int newY;
 
-        public Enemy(Random random)
+        public Enemy()
         {
-            healthSystem = new HealthSystem();
-            int randomHealth = random.Next(40, 65);
-            healthSystem.health = randomHealth;
+            
         }
 
         public void Init(BuildMap buildMap, Player Hero, Item trap)
