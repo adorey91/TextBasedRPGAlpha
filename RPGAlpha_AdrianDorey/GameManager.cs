@@ -14,32 +14,32 @@ namespace RPGAlpha_AdrianDorey
         public HUD hUD;
         public GameLog log;
 
-        public GameManager()
+        public GameManager(BuildMap buildMap)
         {
-
+            this.buildMap = buildMap;
         }
 
         public void Gameplay()
         {
             //Initializing
             buildMap.MapInit();
-            InitPositions();
+            //InitPositions();
 
 
-            while (!isGameOver())
-            {
-                WriteTitle();
-                hUD.ShowHUD();
-            }
+            //while (!isGameOver())
+            //{
+            //    WriteTitle();
+            //    hUD.ShowHUD();
+            //}
 
-            WriteTitle();
-            hUD.ShowHUD();
-            log.PrintGameLog();
+            //WriteTitle();
+            //hUD.ShowHUD();
+            //log.PrintGameLog();
 
-            if (Hero.PlayerDied())
-                Console.WriteLine("Player has died, press any key to exit");
-            else
-                Console.WriteLine("Player has won! Press any key to exit");
+            //if (Hero.PlayerDied())
+            //    Console.WriteLine("Player has died, press any key to exit");
+            //else
+            //    Console.WriteLine("Player has won! Press any key to exit");
 
             Console.ReadKey();
 

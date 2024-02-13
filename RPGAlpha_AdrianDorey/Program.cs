@@ -13,7 +13,9 @@ namespace RPGAlpha_AdrianDorey
 
         static void Main(string[] args)
         {
-            gameManager = new GameManager();
+            BuildMap buildMap = new BuildMap();
+            gameManager = new GameManager(buildMap);
+
 
             gameManager.Gameplay();
         }
