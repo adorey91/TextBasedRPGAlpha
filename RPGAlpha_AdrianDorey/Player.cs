@@ -13,28 +13,26 @@ namespace RPGAlpha_AdrianDorey
     {
         int dirX;
         int dirY;
-        public Enemy Badman1;
-        public Enemy Badman2;
-        public Item money1;
-        public Item money2;
-        public Item trap;
+        public RangedEnemy[] Rangers;
+        public MageEnemy[] Mages;
+        public MeleeEnemy[] Slimes;
+        public Item[] Money;
+        public Item[] Potion;
 
         public Player()
         {
             healthSystem = new HealthSystem();
             healthSystem.health = 100;
+            character = 'H';
         }
 
-        public void Init(BuildMap buildMap, Enemy Badman1, Enemy Badman2, Item money1, Item money2, Item potion1, Item potion2, Item trap)
+        public void Init(BuildMap buildMap, RangedEnemy[] Rangers, MageEnemy[] Mages, Item[] Money, Item[] Potion)
         {
             this.buildMap = buildMap;
-            this.Badman1 = Badman1;
-            this.Badman2 = Badman2;
-            this.money1 = money1;
-            this.money2 = money2;
-            this.potion1 = potion1;
-            this.potion2 = potion2;
-            this.trap = trap;
+            this.Rangers = Rangers;
+            this.Mages = Mages;
+            this.Money = Money;
+            this.Potion = Potion;
         }
 
         public void PlayerMovement()
@@ -55,33 +53,30 @@ namespace RPGAlpha_AdrianDorey
                         else
                             MovePlayer(newX, newY);
                     }
-                    if (buildMap.CheckPoisonFloor(newX, newY))
-                        healthSystem.FloorDamage(5);
-                    else if (newX == trap.pos.x && newY == trap.pos.y && !trap.collected)
-                    {
-                        healthSystem.TrapDamage(7);
-                        trap.collected = true;
-                    }
                 }
             }
-            else
-                return;
         }
 
 
-        public bool CheckEnemy(int newX, int newY) 
+        public bool CheckEnemy(int newX, int newY)
         {
-            return Badman1.pos.x == newX && Badman1.pos.y == newY && Badman1.healthSystem.health != 0 ||
-                Badman2.pos.x == newX && Badman2.pos.y == newY && Badman2.healthSystem.health != 0;
+            foreach (RangedEnemy enemy in Rangers)
+            {
+                if(enemy.pos.x == newX &&  enemy.pos.y == newY && !enemy.healthSystem.dead)
+                return true;
+            }
+            return false;
         }
 
         void AttackEnemy(int newX, int newY)
+        {
+            foreach (RangedEnemy enemy in Rangers)
             {
-                if (Badman1.pos.x == newX && Badman1.pos.y == newY && Badman1.healthSystem.health != 0)
-                Badman1.TakeDamage(10);
-            else if (Badman2.pos.x == newX && Badman2.pos.y == newY && Badman2.healthSystem.health != 0)
-                Badman2.TakeDamage(10);
+                if (enemy.pos.x == newX && enemy.pos.y == newY && !enemy.healthSystem.dead)
+                    enemy.TakeDamage(10);
+            }
         }
+
         private void PlayerInput()
         {
             ConsoleKeyInfo input = Console.ReadKey();
@@ -109,6 +104,9 @@ namespace RPGAlpha_AdrianDorey
                     break;
                 case ConsoleKey.Spacebar:
                     return; // using for testing, player doesn't move
+                case ConsoleKey.Escape:
+                    System.Environment.Exit(0);
+                    return; // using for testing, player doesn't move
             }
         }
 
@@ -117,19 +115,14 @@ namespace RPGAlpha_AdrianDorey
             pos.x = newX;
             pos.y = newY;
 
-            money1.TryCollect(newX, newY);
-            money2.TryCollect(newX, newY);
-            CollectPotion(newX, newY);
+            //money1.TryCollect(newX, newY);
+            //money2.TryCollect(newX, newY);
+            //CollectPotion(newX, newY);
         }
 
         public bool PlayerDied()
         {
             return healthSystem.dead;
-        }
-
-        public bool PlayerWon()
-        {
-            return Badman1.healthSystem.dead && Badman2.healthSystem.dead && money1.collected && money2.collected;
         }
     }
 }

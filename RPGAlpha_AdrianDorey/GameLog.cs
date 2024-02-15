@@ -9,8 +9,8 @@ namespace RPGAlpha_AdrianDorey
 {
     internal class GameLog
     {
-        public Enemy Badman1;
-        public Enemy Badman2;
+        public RangedEnemy Badman1;
+        public RangedEnemy Badman2;
         public Player Hero;
         public Item money1;
         public Item money2;
@@ -21,7 +21,7 @@ namespace RPGAlpha_AdrianDorey
         private bool badman1 = true;
         private bool badman2 = true;
 
-        public void Init(Player Hero, Enemy Badman1, Enemy Badman2, Item money1, Item money2, Item potion1, Item potion2, Item trap)
+        public void Init(Player Hero, RangedEnemy Badman1, RangedEnemy Badman2, Item money1, Item money2, Item potion1, Item potion2, Item trap)
         {
             this.Hero = Hero;
             this.Badman1 = Badman1;

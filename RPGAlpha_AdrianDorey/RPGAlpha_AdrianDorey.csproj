@@ -70,7 +70,8 @@
     <Compile Include="HUD.cs" />
     <Compile Include="Item.cs" />
     <Compile Include="MageEnemy.cs" />
-    <Compile Include="MapExtras.cs" />
+    <Compile Include="MapLegendColours.cs" />
+    <Compile Include="MapPositions.cs" />
     <Compile Include="MeleeEnemy.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="Point2D.cs" />

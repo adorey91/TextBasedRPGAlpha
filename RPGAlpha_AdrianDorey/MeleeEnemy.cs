@@ -8,5 +8,9 @@ namespace RPGAlpha_AdrianDorey
 {
     internal class MeleeEnemy : Enemy
     {
+        public MeleeEnemy()
+        {
+            character = 'S';
+        }
     }
 }

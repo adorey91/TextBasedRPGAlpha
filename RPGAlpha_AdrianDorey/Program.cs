@@ -9,14 +9,10 @@ namespace RPGAlpha_AdrianDorey
 {
     internal class Program
     {
-        static GameManager gameManager;
+        static GameManager gameManager = new GameManager();
 
         static void Main(string[] args)
         {
-            BuildMap buildMap = new BuildMap();
-            gameManager = new GameManager(buildMap);
-
-
             gameManager.Gameplay();
         }
     }

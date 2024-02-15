@@ -6,22 +6,24 @@ using System.Threading.Tasks;
 
 namespace RPGAlpha_AdrianDorey
 {
-    internal class MapExtras
+    internal class MapLegendColours
     {
-        BuildMap buildMap;
-
         public void DisplayLegend() // displays legend on the bottom of the map.
         {
+            Console.WriteLine("+--------------------------+");
             Console.WriteLine("Map Legend:");
-
             DisplaySymbol('H', "Hero (Player)");
-            DisplaySymbol('E', "Enemies");
+            DisplaySymbol('R', "Ranger");
+            DisplaySymbol('M', "Mage");
+            DisplaySymbol('S', "Slime");
             DisplaySymbol('$', "Money");
             DisplaySymbol('δ', "Potion");
             DisplaySymbol('T', "Trap");
+            DisplaySymbol('*', "Next Area");
             DisplaySymbol('~', "Deep Water");
-            DisplaySymbol('P', "Poison Spill");
+            DisplaySymbol('^', "Mountains");
             DisplaySymbol('#', "Walls");
+            Console.WriteLine("+--------------------------+");
         }
 
         private void DisplaySymbol(char symbol, string description)
@@ -36,37 +38,45 @@ namespace RPGAlpha_AdrianDorey
         {
             switch (c)
             {
-                case '#':
+                case '#': // Boundaries
                     Console.ForegroundColor = ConsoleColor.DarkGray;
                     Console.BackgroundColor = ConsoleColor.DarkGray;
                     break;
-                case 'P':
-                    Console.ForegroundColor = ConsoleColor.Green;
-                    Console.BackgroundColor = ConsoleColor.DarkGreen;
+                case '^': // Mountain
+                    Console.ForegroundColor = ConsoleColor.DarkRed;
+                    Console.BackgroundColor = ConsoleColor.Gray;
                     break;
-                case '~':
-                    Console.ForegroundColor = ConsoleColor.Blue;
-                    Console.BackgroundColor = ConsoleColor.DarkBlue;
+                case '~': // Water
+                    Console.ForegroundColor = ConsoleColor.DarkBlue;
+                    Console.BackgroundColor = ConsoleColor.Blue;
                     break;
-                case '$':
+                case '$': // Money (item)
                     Console.ForegroundColor = ConsoleColor.Black;
                     Console.BackgroundColor = ConsoleColor.Green;
                     break;
-                case 'E':
-                    Console.ForegroundColor = ConsoleColor.Magenta;
-                    Console.BackgroundColor = ConsoleColor.Black;
-                    break;
-                case 'T':
+                case 'T': // Traps (item)
                     Console.ForegroundColor = ConsoleColor.DarkCyan;
                     Console.BackgroundColor = ConsoleColor.Black;
                     break;
-
-                case 'H':
-                    Console.ForegroundColor = ConsoleColor.Blue;
+                case 'S': // Slimes
+                    Console.ForegroundColor = ConsoleColor.Green;
                     break;
-                case 'δ':
+                case 'R': // Ranged enemy
+                    Console.ForegroundColor = ConsoleColor.Magenta;
+                    break;
+                case 'M': // Mage
+                    Console.ForegroundColor = ConsoleColor.Magenta;
+                    break;
+                case 'H': // Hero(player)
+                    Console.ForegroundColor = ConsoleColor.Cyan;
+                    break;
+                case 'δ': // Potion (item)
                     Console.ForegroundColor = ConsoleColor.Red;
                     break;
+                case '*':
+                    Console.ForegroundColor = ConsoleColor.Yellow;
+                    break;
+
             }
         }
     }

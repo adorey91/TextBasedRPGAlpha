@@ -16,10 +16,6 @@ namespace RPGAlpha_AdrianDorey
         public bool attacked;
         public int potionHeal = 7;
 
-        public GameEntity()
-        {
-            healthSystem = new HealthSystem();
-        }
 
         public void TakeDamage(int damage)
         {
@@ -32,14 +28,14 @@ namespace RPGAlpha_AdrianDorey
             healthSystem.Heal(hp);
         }
 
-        public void CollectPotion(int posX,int posY)
-        {
-            potion1.TryCollect(posX, posY);
-            potion2.TryCollect(posX, posY);
-            if (potion1.pickedUp)
-                Heal(potionHeal);
-            else if (potion2.pickedUp)
-                Heal(potionHeal);
-        }
+        //public void CollectPotion(int posX,int posY)
+        //{
+        //    potion1.TryCollect(posX, posY);
+        //    potion2.TryCollect(posX, posY);
+        //    if (potion1.pickedUp)
+        //        Heal(potionHeal);
+        //    else if (potion2.pickedUp)
+        //        Heal(potionHeal);
+        //}
     }
 }
