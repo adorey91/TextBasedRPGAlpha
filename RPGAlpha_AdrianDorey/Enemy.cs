@@ -11,7 +11,6 @@ namespace RPGAlpha_AdrianDorey
     internal class Enemy : GameEntity
     {
         public Player Hero;
-        public BuildMap buildMap;
 
         Random randomMovement = new Random();
         public int dx;
@@ -19,16 +18,9 @@ namespace RPGAlpha_AdrianDorey
         public int newDY;
         public int newDX;
 
-        public void EnemyInit(Player Hero, BuildMap buildMap)
+        public void EnemyInit(Player Hero)
         {
             this.Hero = Hero;
-            this.buildMap = buildMap;
-        }
-
-
-        public void AttackPlayer()
-        {
-            Hero.TakeDamage(10);
         }
 
         public int PlayerDistance()

@@ -13,7 +13,7 @@ namespace RPGAlpha_AdrianDorey
         public int mapLevel = 0;
         public int previousLevel = 0;
         private char[,] mapContent;
-        private string[] mapTextFiles = new string[] { "Map1.txt", "Map2.txt", "Map3.txt" };
+        private string[] mapTextFiles = new string[] { "Map0.txt", "Map1.txt", "Map2.txt" };
 
         public Player Hero;
         public RangedEnemy[] Rangers;
@@ -76,40 +76,30 @@ namespace RPGAlpha_AdrianDorey
         {
             if (i == Hero.pos.y && j == Hero.pos.x)
                 return Hero.character;
-            if (i == Rangers[0].pos.y && j == Rangers[0].pos.x && !Rangers[0].healthSystem.dead && mapLevel == 0)
-                return Rangers[0].character;
-            if (i == Rangers[1].pos.y && j == Rangers[1].pos.x && !Rangers[1].healthSystem.dead && mapLevel == 0)
-                return Rangers[1].character;
-            if (i == Rangers[2].pos.y && j == Rangers[2].pos.x && !Rangers[2].healthSystem.dead && mapLevel == 1)
-                return Rangers[2].character;
-            if (i == Mages[0].pos.y && j == Mages[0].pos.x && !Mages[0].healthSystem.dead && mapLevel == 1)
-                return Mages[0].character;
-            if (i == Mages[1].pos.y && j == Mages[1].pos.x && !Mages[1].healthSystem.dead && mapLevel == 1)
-                return Mages[1].character;
-            if (i == Mages[2].pos.y && j == Mages[2].pos.x && !Mages[2].healthSystem.dead && mapLevel == 2)
-                return Mages[2].character;
-            //if (i == Slime[0].pos.y && j == Slime[0].pos.x && !Slime[0].healthSystem.dead && mapLevel == 2)
-            //    return Slime[0].character;
-            //if (i == Slime[1].pos.y && j == Slime[1].pos.x && !Slime[1].healthSystem.dead && mapLevel == 2)
-            //    return Slime[1].character;
-            //if (i == Slime[2].pos.y && j == Slime[2].pos.x && !Slime[2].healthSystem.dead && mapLevel == 2)
-            //    return Slime[2].character;
-            //if (i == money1.pos.y && j == money1.pos.x && !money1.collected)
-            //    return money1.moneyChar;
 
-            //if (i == money2.pos.y && j == money2.pos.x && !money2.collected)
-            //    return money2.moneyChar;
+            foreach (var ranger in Rangers)
+            {
+                if (mapLevel == 0 && i == ranger.pos.y && j == ranger.pos.x && !ranger.healthSystem.dead)
+                    return ranger.character;
+                else if (mapLevel == 1 && i == ranger.pos.y && j == ranger.pos.x && !ranger.healthSystem.dead)
+                    return ranger.character;
+            }
 
-            //if (i == potion1.pos.y && j == potion1.pos.x && !potion1.collected)
-            //    return potion1.potionChar;
+            foreach (var mage in Mages)
+            {
+                if (mapLevel == 1 && i == mage.pos.y && j == mage.pos.x && !mage.healthSystem.dead)
+                    return mage.character;
+                else if (mapLevel == 2 && i == mage.pos.y && j == mage.pos.x && !mage.healthSystem.dead)
+                    return mage.character;
+            }
 
-            //if (i == potion2.pos.y && j == potion2.pos.x && !potion2.collected)
-            //    return potion1.potionChar;
+            foreach (var slime in Slime)
+            {
+                if (mapLevel == 2 && i == slime.pos.y && j == slime.pos.x && !slime.healthSystem.dead)
+                    return slime.character;
+            }
 
-            //if (i == Traps.pos.y && j == Traps.pos.x && !Traps.collected)
-            //    return Traps.trapChar;
-            else
-                return mapContent[i, j];
+            return mapContent[i, j];
         }
 
         public bool CheckBoundaries(int x, int y) //handles player avoiding boundaries & water & mountains
@@ -122,9 +112,42 @@ namespace RPGAlpha_AdrianDorey
             return mapContent[y, x] == 'P';
         }
 
-
         private void CheckMapChange()
         {
+            switch (mapLevel)
+            {
+                case 0:
+                    if (Hero.pos.x == 40 && Hero.pos.y == 7)
+                    {
+                        mapLevel = 1;
+                        Hero.pos.x = 1;
+                        Hero.pos.y = 7;
+                    }
+                    break;
+                case 1:
+                    if (Hero.pos.x == 0 && Hero.pos.y == 7)
+                    {
+                        mapLevel = 0;
+                        Hero.pos.x = 39;
+                        Hero.pos.y = 7;
+                    }
+                    else if (Hero.pos.x == 37 && Hero.pos.y == 3)
+                    {
+                        mapLevel = 2;
+                        Hero.pos.x = 37;
+                        Hero.pos.y = 20;
+                    }
+                    break;
+                case 2:
+                    if (Hero.pos.x == 37 && Hero.pos.y == 21)
+                    {
+                        mapLevel = 1;
+                        Hero.pos.x = 37;
+                        Hero.pos.y = 4;
+                    }
+                    break;
+            }
+
             if (mapLevel == previousLevel) return;
             else
             {

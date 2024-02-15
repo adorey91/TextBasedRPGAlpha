@@ -8,6 +8,14 @@ namespace RPGAlpha_AdrianDorey
 {
     internal class MageEnemy : Enemy
     {
+        int moveCount = 0;
+        MapPositions mapPositions;
+
+        public void MageInit(MapPositions mapPositions)
+        {
+            this.mapPositions = mapPositions;
+        }
+
         public MageEnemy()
         {
             character = 'M';
@@ -18,23 +26,47 @@ namespace RPGAlpha_AdrianDorey
             healthSystem.health = randomHealth;
         }
 
-        public void MageMovement()
+        //public void MageMovement()
+        //{
+        //    if (!healthSystem.dead)
+        //    {
+        //        if(moveCount == 6)
+        //            RandomPlacement();
+        //        else
+        //        {
+        //            Move(1);
+
+        //            while (!buildMap.CheckBoundaries(newDX, newDY))
+        //                Move(1);
+
+        //            if (newDX == Hero.pos.x || newDY != Hero.pos.y)
+        //                AttackPlayer();
+        //            else
+        //            {
+        //                pos.x = newDX;
+        //                pos.y = newDY;
+        //                moveCount++;
+        //            }
+        //        }
+        //    }
+        //}
+
+        private void AttackPlayer()
         {
-            if (!healthSystem.dead)
+            Hero.TakeDamage(6);
+        }
+
+        private void RandomPlacement()
+        {
+            int x, y;
+            do
             {
-                Move(1);
+                Random random = new Random();
+                x = random.Next(0, buildMap.MapContent.GetLength(1));
+                y = random.Next(0, buildMap.MapContent.GetLength(0));
+            } while (!mapPositions.CheckValidPlacement(x, y));
 
-                while (!buildMap.CheckBoundaries(newDX, newDY))
-                    Move(1);
-
-                if (newDX == Hero.pos.x || newDY != Hero.pos.y)
-                    AttackPlayer();
-                else
-                {
-                    pos.x = newDX;
-                    pos.y = newDY;
-                }
-            }
+            pos = new Point2D { x = x, y = y };
         }
     }
 }

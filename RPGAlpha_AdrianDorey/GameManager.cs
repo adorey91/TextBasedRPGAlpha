@@ -55,14 +55,17 @@ namespace RPGAlpha_AdrianDorey
             //Initializing
             hUD.Init(Hero, Rangers,Mages,Slimes, Money, buildMap);
             buildMap.MapInit();
+            
             mapPositions.InitializeCharacterPositions();
             Hero.Init(buildMap, Rangers, Mages, Money, Potion);
-            Rangers[0].EnemyInit(Hero, buildMap);
-            Rangers[1].EnemyInit(Hero, buildMap);
-            Rangers[2].EnemyInit(Hero, buildMap);
-            Mages[0].EnemyInit(Hero, buildMap);
-            Mages[1].EnemyInit(Hero, buildMap);
-            Mages[2].EnemyInit(Hero, buildMap);
+
+
+            Rangers[0].EnemyInit(Hero);
+            Rangers[1].EnemyInit(Hero);
+            Rangers[2].EnemyInit(Hero);
+            Mages[0].EnemyInit(Hero);
+            Mages[1].EnemyInit(Hero);
+            Mages[2].EnemyInit(Hero);
 
 
             //while (!isGameOver())
@@ -78,21 +81,21 @@ namespace RPGAlpha_AdrianDorey
                 hUD.ShowHUD();
 
                 Hero.PlayerMovement();
-                if (buildMap.mapLevel == 0)
-                {
-                    Rangers[0].RangerMovement();
-                    Rangers[1].RangerMovement();
-                }
-                if (buildMap.mapLevel == 1)
-                {
-                    Rangers[2].RangerMovement();
-                    Mages[0].MageMovement();
-                    Mages[1].MageMovement();
-                }
-                if(buildMap.mapLevel == 2)
-                {
-                    Mages[2].MageMovement();
-                }
+                //if (buildMap.mapLevel == 0)
+                //{
+                //    Rangers[0].RangerMovement();
+                //    Rangers[1].RangerMovement();
+                //}
+                //if (buildMap.mapLevel == 1)
+                //{
+                //    Rangers[2].RangerMovement();
+                //    Mages[0].MageMovement();
+                //    Mages[1].MageMovement();
+                //}
+                //if(buildMap.mapLevel == 2)
+                //{
+                //    Mages[2].MageMovement();
+                //}
 
                 //log.PrintGameLog();
 

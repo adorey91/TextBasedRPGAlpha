@@ -80,7 +80,7 @@ namespace RPGAlpha_AdrianDorey
             }
         }
 
-        private bool CheckValidPlacement(int x, int y)
+        public bool CheckValidPlacement(int x, int y)
         {
             return buildMap.CheckBoundaries(x, y) && IsEmptySpace(x, y);
         }
@@ -89,9 +89,37 @@ namespace RPGAlpha_AdrianDorey
         {
             if (Hero.pos.x == x && Hero.pos.y == y)
                 return false;
+
             foreach (RangedEnemy enemy in Rangers)
             {
                 if (enemy.pos.x == x && enemy.pos.y == y)
+                    return false;
+            }
+
+            foreach (MageEnemy enemy in Mages)
+            {
+                if (enemy.pos.x == x && enemy.pos.y == y)
+                    return false;
+            }
+
+            foreach (MeleeEnemy enemy in Slimes)
+            {
+                if (enemy.pos.x == x && enemy.pos.y == y)
+                    return false;
+            }
+            foreach (Item potion in Potions)
+            {
+                if(potion.pos.x == x && potion.pos.y == y)
+                    return false;
+            }
+            foreach (Item money in Money)
+            {
+                if(money.pos.x == x && money.pos.y == y)
+                    return false;
+            }
+            foreach(Item trap in Traps)
+            {
+                if(trap.pos.x == x && trap.pos.y == y)
                     return false;
             }
 
