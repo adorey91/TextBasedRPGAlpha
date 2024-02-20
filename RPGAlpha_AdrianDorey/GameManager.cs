@@ -55,10 +55,9 @@ namespace RPGAlpha_AdrianDorey
             //Initializing
             hUD.Init(Hero, Rangers,Mages,Slimes, money, buildMap);
             buildMap.MapInit();
-            
             mapPositions.InitializeCharacterPositions();
-            Hero.Init(buildMap, Rangers, Mages, money, potion);
-
+            Hero.Init(buildMap, Rangers, Mages, Slimes, money, potion);
+            log.Init(Hero, Rangers, Mages, Slimes, money, potion, traps);
 
             Rangers[0].EnemyInit(Hero);
             Rangers[1].EnemyInit(Hero);
@@ -70,6 +69,7 @@ namespace RPGAlpha_AdrianDorey
 
             while (!gameOver)
             {
+                buildMap.CheckMapChange();
                 WriteTitle();
                 hUD.ShowHUD();
                 buildMap.DrawMap();
@@ -93,7 +93,7 @@ namespace RPGAlpha_AdrianDorey
                 //    Mages[2].MageMovement();
                 //}
 
-                //log.PrintGameLog();
+                log.PrintGameLog();
 
                 //if (Hero.PlayerDied())
                 //    Console.WriteLine("Player has died, press any key to exit");

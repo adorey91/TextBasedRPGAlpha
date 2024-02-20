@@ -10,14 +10,12 @@ namespace RPGAlpha_AdrianDorey
     {
         public int health;
         public bool dead;
-        public bool attackedByEnemy;
         public bool floorDamage;
         public bool trapDamage;
         
         public void TakeDamage(int damage)
         {
             health -= damage;
-            attackedByEnemy = true;
 
             if (health <= 0)
             {

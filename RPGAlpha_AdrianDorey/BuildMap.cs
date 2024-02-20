@@ -36,7 +36,7 @@ namespace RPGAlpha_AdrianDorey
             this.Slime = Slimes;
             this.potions = potions;
             this.money = money;
-            this.trap = trap; 
+            this.trap = trap;
         }
 
 
@@ -73,8 +73,6 @@ namespace RPGAlpha_AdrianDorey
 
         public void DrawMap()
         {
-            CheckMapChange();
-
             for (int i = 0; i < GetMapContent(mapLevel).GetLength(0); i++)
             {
                 for (int j = 0; j < GetMapContent(mapLevel).GetLength(1); j++)
@@ -128,7 +126,7 @@ namespace RPGAlpha_AdrianDorey
                         return Mages[2].character;
                     if (Slime[0].pos.x == j && Slime[0].pos.y == i && !Slime[0].healthSystem.dead)
                         return Slime[0].character;
-                    if (Slime[1].pos.x == j && Slime[1].pos.y == i && Slime[1].healthSystem.dead)
+                    if (Slime[1].pos.x == j && Slime[1].pos.y == i && !Slime[1].healthSystem.dead)
                         return Slime[1].character;
                     if (Slime[2].pos.x == j && Slime[2].pos.y == i && !Slime[2].healthSystem.dead)
                         return Slime[2].character;
@@ -144,15 +142,14 @@ namespace RPGAlpha_AdrianDorey
             }
             return allMapContents[mapLevel][i, j];
         }
-        
 
         public bool CheckBoundaries(int x, int y, int levelNumber) //handles avoiding boundaries & water & mountains
         {
-            return x >= 0 && x < GetMapContent(levelNumber).GetLength(1) && y >= 0 && y < GetMapContent(levelNumber).GetLength(0) && 
+            return x >= 0 && x < GetMapContent(levelNumber).GetLength(1) && y >= 0 && y < GetMapContent(levelNumber).GetLength(0) &&
                 GetMapContent(levelNumber)[y, x] != '#' && GetMapContent(levelNumber)[y, x] != '~' && GetMapContent(levelNumber)[y, x] != '^';
         }
 
-        private void CheckMapChange()
+        public void CheckMapChange()
         {
             switch (mapLevel)
             {

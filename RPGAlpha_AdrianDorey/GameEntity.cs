@@ -12,7 +12,6 @@ namespace RPGAlpha_AdrianDorey
         public BuildMap buildMap;
         public bool attacked;
         public int potionHeal = 7;
-        
 
 
         public void TakeDamage(int damage)
