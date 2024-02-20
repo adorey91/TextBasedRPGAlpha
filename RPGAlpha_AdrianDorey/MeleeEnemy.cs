@@ -11,6 +11,7 @@ namespace RPGAlpha_AdrianDorey
         public MeleeEnemy()
         {
             character = 'S';
+            name = "Slime";
 
             Random random = new Random();
             healthSystem = new HealthSystem();

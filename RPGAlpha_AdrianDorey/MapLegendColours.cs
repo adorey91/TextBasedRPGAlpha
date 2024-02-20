@@ -8,17 +8,35 @@ namespace RPGAlpha_AdrianDorey
 {
     internal class MapLegendColours
     {
+        public Player Hero;
+        public RangedEnemy Ranger;
+        public MageEnemy Mage;
+        public MeleeEnemy Slime;
+        public Money money;
+        public Traps trap;
+        public Potion potion;
+
+        public MapLegendColours(Player hero, RangedEnemy ranger, MageEnemy mage, MeleeEnemy slime, Money money, Traps trap, Potion potion)
+        {
+            this.Hero = hero;
+            this.Ranger = ranger;
+            this.Mage = mage;
+            this.Slime = slime;
+            this.money = money;
+            this.trap = trap;
+            this.potion = potion;
+        }
         public void DisplayLegend() // displays legend on the bottom of the map.
         {
             Console.WriteLine("+--------------------------+");
             Console.WriteLine("Map Legend:");
-            DisplaySymbol('H', "Hero (Player)");
-            DisplaySymbol('R', "Ranger");
-            DisplaySymbol('M', "Mage");
-            DisplaySymbol('S', "Slime");
-            DisplaySymbol('$', "Money");
-            DisplaySymbol('δ', "Potion");
-            DisplaySymbol('T', "Trap");
+            DisplaySymbol(Hero.character, Hero.name);
+            DisplaySymbol(Ranger.character, Ranger.name);
+            DisplaySymbol(Mage.character, Mage.name);
+            DisplaySymbol(Slime.character, Slime.name);
+            DisplaySymbol(money.character, money.name);
+            DisplaySymbol(potion.character, potion.name);
+            DisplaySymbol(trap.character, trap.name);
             DisplaySymbol('*', "Next Area");
             DisplaySymbol('~', "Deep Water");
             DisplaySymbol('^', "Mountains");

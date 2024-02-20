@@ -16,8 +16,10 @@ namespace RPGAlpha_AdrianDorey
         public RangedEnemy[] Rangers;
         public MageEnemy[] Mages;
         public MeleeEnemy[] Slimes;
-        public Item[] Money;
-        public Item[] Potion;
+        public Money[] money;
+        public Potion[] potion;
+        public char character;
+        public string name = "Hero (Player)";
 
         public Player()
         {
@@ -26,13 +28,13 @@ namespace RPGAlpha_AdrianDorey
             character = 'H';
         }
 
-        public void Init(BuildMap buildMap, RangedEnemy[] Rangers, MageEnemy[] Mages, Item[] Money, Item[] Potion)
+        public void Init(BuildMap buildMap, RangedEnemy[] Rangers, MageEnemy[] Mages, Money[] money, Potion[] potion)
         {
             this.buildMap = buildMap;
             this.Rangers = Rangers;
             this.Mages = Mages;
-            this.Money = Money;
-            this.Potion = Potion;
+            this.money = money;
+            this.potion = potion;
         }
 
         public void PlayerMovement()
@@ -46,7 +48,7 @@ namespace RPGAlpha_AdrianDorey
                     int newX = pos.x + dirX;
                     int newY = pos.y + dirY;
 
-                    if (buildMap.CheckBoundaries(newX, newY))
+                    if (buildMap.CheckBoundaries(newX, newY, buildMap.mapLevel))
                     {
                         if (CheckEnemy(newX, newY))
                             AttackEnemy(newX, newY);
@@ -70,11 +72,7 @@ namespace RPGAlpha_AdrianDorey
 
         void AttackEnemy(int newX, int newY)
         {
-            foreach (RangedEnemy enemy in Rangers)
-            {
-                if (enemy.pos.x == newX && enemy.pos.y == newY && !enemy.healthSystem.dead)
-                    enemy.TakeDamage(10);
-            }
+            
         }
 
         private void PlayerInput()
@@ -115,9 +113,24 @@ namespace RPGAlpha_AdrianDorey
             pos.x = newX;
             pos.y = newY;
 
-            //money1.TryCollect(newX, newY);
-            //money2.TryCollect(newX, newY);
-            //CollectPotion(newX, newY);
+
+            switch (buildMap.mapLevel)
+            {
+                case 0:
+                    if (money[0].pos.x == newX && money[0].pos.y == newY)
+                        money[0].TryCollect(newX, newY);
+                    break;
+                case 1:
+                    if (money[1].pos.x == newX && money[1].pos.y == newY)
+                        money[1].TryCollect(newX, newY);
+                    if (money[2].pos.x == newX && money[2].pos.y == newY)
+                        money[2].TryCollect(newX, newY);
+                    break;
+                case 2:
+                    if (money[3].pos.x == newX && money[3].pos.y == newY)
+                        money[3].TryCollect(newX, newY);
+                    break;
+            }
         }
 
         public bool PlayerDied()

@@ -15,9 +15,9 @@ namespace RPGAlpha_AdrianDorey
         public RangedEnemy[] Rangers = new RangedEnemy[3];
         public MageEnemy[] Mages = new MageEnemy[3];
         public MeleeEnemy[] Slimes = new MeleeEnemy[3];
-        public Item[] Potion = new Item[4];
-        public Item[] Money = new Item[4];
-        public Item[] Traps = new Item[3];
+        public Potion[] potion = new Potion[4];
+        public Money[] money = new Money[4];
+        public Traps[] traps = new Traps[3];
         public MapLegendColours legendColours;
         public MapPositions mapPositions;
         public BuildMap buildMap;
@@ -34,16 +34,16 @@ namespace RPGAlpha_AdrianDorey
                 Mages[i] = new MageEnemy();
                 Slimes[i] = new MeleeEnemy();
             }
-            for (int i = 0; i< Potion.Length; i++)
-                Potion[i] = new Item();
-            for (int i = 0;i< Money.Length; i++)
-                Money[i] = new Item();
-            for (int i = 0; i < Traps.Length; i++)
-                Traps[i] = new Item();
+            for (int i = 0; i< potion.Length; i++)
+                potion[i] = new Potion();
+            for (int i = 0;i< money.Length; i++)
+                money[i] = new Money();
+            for (int i = 0; i < traps.Length; i++)
+                traps[i] = new Traps();
 
-            legendColours = new MapLegendColours();
-            buildMap = new BuildMap(legendColours, Hero, Rangers, Mages, Slimes);
-            mapPositions = new MapPositions(Hero, Rangers, Mages, Slimes, Potion, Money, Traps, buildMap);
+            legendColours = new MapLegendColours(Hero, Rangers[0], Mages[0], Slimes[0], money[0], traps[0], potion[0]);
+            buildMap = new BuildMap(legendColours, Hero, Rangers, Mages, Slimes, potion, money, traps);
+            mapPositions = new MapPositions(Hero, Rangers, Mages, Slimes, potion, money, traps, buildMap);
 
             hUD = new HUD();
             log = new GameLog();
@@ -53,11 +53,11 @@ namespace RPGAlpha_AdrianDorey
         {
             
             //Initializing
-            hUD.Init(Hero, Rangers,Mages,Slimes, Money, buildMap);
+            hUD.Init(Hero, Rangers,Mages,Slimes, money, buildMap);
             buildMap.MapInit();
             
             mapPositions.InitializeCharacterPositions();
-            Hero.Init(buildMap, Rangers, Mages, Money, Potion);
+            Hero.Init(buildMap, Rangers, Mages, money, potion);
 
 
             Rangers[0].EnemyInit(Hero);
@@ -66,20 +66,16 @@ namespace RPGAlpha_AdrianDorey
             Mages[0].EnemyInit(Hero);
             Mages[1].EnemyInit(Hero);
             Mages[2].EnemyInit(Hero);
+            
 
-
-            //while (!isGameOver())
-            //{
-            //WriteTitle();
-            //    hUD.ShowHUD();
-            //}
             while (!gameOver)
             {
                 WriteTitle();
+                hUD.ShowHUD();
                 buildMap.DrawMap();
                 legendColours.DisplayLegend();
-                hUD.ShowHUD();
 
+                //movement
                 Hero.PlayerMovement();
                 //if (buildMap.mapLevel == 0)
                 //{
@@ -114,7 +110,7 @@ namespace RPGAlpha_AdrianDorey
 
         public void CheckGameOver()
         {
-            if(AreAllEnemiesDead(Rangers) && AreAllEnemiesDead(Mages) && AreAllEnemiesDead(Slimes) && IsMoneyColleceted(Money))
+            if(AreAllEnemiesDead(Rangers) && AreAllEnemiesDead(Mages) && AreAllEnemiesDead(Slimes) && IsMoneyColleceted(money))
                 gameOver = true;
         }
 
@@ -133,7 +129,6 @@ namespace RPGAlpha_AdrianDorey
             Console.Clear();
             Console.WriteLine("\x1b[3J");
             Console.WriteLine("Text Based RPG Alpha");
-            Console.WriteLine();
         }
     }
 }

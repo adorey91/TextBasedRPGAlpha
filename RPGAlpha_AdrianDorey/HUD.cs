@@ -51,23 +51,18 @@ namespace RPGAlpha_AdrianDorey
             }
             Console.Write("Item Picked Up: ");
 
-            //if (money1.collected == true)
-            //{
-            //    Console.BackgroundColor = ConsoleColor.Green;
-            //    Console.ForegroundColor = ConsoleColor.Black;
-            //    Console.Write(money1.moneyChar);
-            //    Console.ResetColor();
-            //}
-
-            //Console.Write(' ');
-
-            //if (money2.collected == true)
-            //{
-            //    Console.BackgroundColor = ConsoleColor.Green;
-            //    Console.ForegroundColor = ConsoleColor.Black;
-            //    Console.Write(money2.moneyChar);
-            //    Console.ResetColor();
-            //}
+            foreach(Money money in Money)
+            {
+                if(money.collected)
+                {
+                    Console.BackgroundColor = ConsoleColor.Green;
+                    Console.ForegroundColor = ConsoleColor.Black;
+                    Console.Write(money.character);
+                    Console.ResetColor();
+                    Console.Write(' ');
+                }
+            }
+            
             Console.WriteLine();
             Console.WriteLine("+--------------------------+");
             Console.WriteLine();

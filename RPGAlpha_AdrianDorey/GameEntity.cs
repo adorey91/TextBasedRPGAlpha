@@ -8,13 +8,11 @@ namespace RPGAlpha_AdrianDorey
 {
     internal class GameEntity : GameObject
     {
-        public char character;
         public HealthSystem healthSystem;
         public BuildMap buildMap;
-        public Item potion1;
-        public Item potion2;
         public bool attacked;
         public int potionHeal = 7;
+        
 
 
         public void TakeDamage(int damage)

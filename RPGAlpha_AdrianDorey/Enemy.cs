@@ -11,12 +11,15 @@ namespace RPGAlpha_AdrianDorey
     internal class Enemy : GameEntity
     {
         public Player Hero;
+        public char character;
+        public string name;
 
         Random randomMovement = new Random();
         public int dx;
         public int dy;
         public int newDY;
         public int newDX;
+        
 
         public void EnemyInit(Player Hero)
         {

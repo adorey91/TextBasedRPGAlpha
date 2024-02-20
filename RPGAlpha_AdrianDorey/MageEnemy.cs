@@ -19,7 +19,8 @@ namespace RPGAlpha_AdrianDorey
         public MageEnemy()
         {
             character = 'M';
-
+            name = "Mage";
+           
             Random random = new Random();
             healthSystem = new HealthSystem();
             int randomHealth = random.Next(40, 75);
@@ -62,9 +63,9 @@ namespace RPGAlpha_AdrianDorey
             do
             {
                 Random random = new Random();
-                x = random.Next(0, buildMap.MapContent.GetLength(1));
-                y = random.Next(0, buildMap.MapContent.GetLength(0));
-            } while (!mapPositions.CheckValidPlacement(x, y));
+                x = random.Next(0, buildMap.GetMapContent(buildMap.mapLevel).GetLength(1));
+                y = random.Next(0, buildMap.GetMapContent(buildMap.mapLevel).GetLength(0));
+            } while (!mapPositions.CheckValidPlacement(x, y, buildMap.mapLevel));
 
             pos = new Point2D { x = x, y = y };
         }

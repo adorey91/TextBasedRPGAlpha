@@ -11,6 +11,7 @@ namespace RPGAlpha_AdrianDorey
         public RangedEnemy()
         {
             character = 'R';
+            name = "Ranger";
 
             Random random = new Random();
             healthSystem = new HealthSystem();

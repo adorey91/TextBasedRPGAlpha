@@ -5,13 +5,10 @@ namespace RPGAlpha_AdrianDorey
 {
     internal class Item : GameObject
     {
-        public bool collected;  // used for the HUD
-        public bool pickedUp;   // used for the game log
-        public char moneyChar = '$';
-        public char potionChar = 'δ';
-        public char trapChar = 'T';
-
-        public int potionHeal = 8;
+        public bool collected;  // used for the HUD - is set once and stays set.
+        public bool pickedUp;   // used for the game log - is set true then goes false after that turn.
+        public char character;
+        public string name;
 
         public Item() 
         {
