@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace RPGAlpha_AdrianDorey
 {
@@ -10,8 +6,6 @@ namespace RPGAlpha_AdrianDorey
     {
         public HealthSystem healthSystem;
         public BuildMap buildMap;
-
-
 
         public void CheckForTraps(Traps[] trap, int startIndex, int endIndex, int newX, int newY)
         {

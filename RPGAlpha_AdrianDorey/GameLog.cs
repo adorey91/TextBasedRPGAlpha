@@ -36,6 +36,7 @@ namespace RPGAlpha_AdrianDorey
             LogPickUpText();
             LogHealingText();
             LogEnemyDeathText();
+            Console.WriteLine();
         }
 
         private void LogAttackText()

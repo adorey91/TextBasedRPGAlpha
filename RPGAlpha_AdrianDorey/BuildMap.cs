@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Diagnostics;
 using System.IO;
-using System.Net.NetworkInformation;
-using System.Reflection;
-using System.Threading;
 
 namespace RPGAlpha_AdrianDorey
 {

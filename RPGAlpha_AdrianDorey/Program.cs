@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO;
-using System.Runtime.InteropServices;
-using System.Threading;
 
 namespace RPGAlpha_AdrianDorey
 {
@@ -13,7 +8,7 @@ namespace RPGAlpha_AdrianDorey
 
         static void Main(string[] args)
         {
-            Console.SetWindowSize(80, 30);
+            Console.SetWindowSize(100, 50);
             Console.CursorVisible = false;
             gameManager.Gameplay();
         }

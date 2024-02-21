@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace RPGAlpha_AdrianDorey
 {
@@ -16,11 +12,11 @@ namespace RPGAlpha_AdrianDorey
             name = "Ranger";
 
             healthSystem = new HealthSystem();
-            int randomHealth = random.Next(35, 65);
+            int randomHealth = random.Next(35, 60);
             healthSystem.health = randomHealth;
         }
 
-        public void RangerMovement()
+        public void RangerMovement() // doesnt move unless the player is within a certain distance
         {
             if (!healthSystem.mapDead)
             {
@@ -61,7 +57,6 @@ namespace RPGAlpha_AdrianDorey
 
         private void AttackPlayer()
         {
-
             Hero.healthSystem.TakeDamage(RangerDamage);
         }
     }

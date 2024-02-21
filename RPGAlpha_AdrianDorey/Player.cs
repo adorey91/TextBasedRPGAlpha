@@ -1,11 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Runtime.Remoting.Messaging;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace RPGAlpha_AdrianDorey
 {
@@ -48,7 +41,7 @@ namespace RPGAlpha_AdrianDorey
             {
                 PlayerInput();
 
-                if(dirX != 0 || dirY != 0)
+                if (dirX != 0 || dirY != 0)
                 {
                     int newX = pos.x + dirX;
                     int newY = pos.y + dirY;
@@ -75,21 +68,41 @@ namespace RPGAlpha_AdrianDorey
 
             switch (input.Key)
             {
-                case ConsoleKey.W:
-                case ConsoleKey.UpArrow:
+                case ConsoleKey.NumPad8:
                     dirY = -1;
                     break;
-                case ConsoleKey.S:
-                case ConsoleKey.DownArrow:
+                case ConsoleKey.NumPad2:
                     dirY = 1;
                     break;
-                case ConsoleKey.A:
-                case ConsoleKey.LeftArrow:
+                case ConsoleKey.NumPad4:
                     dirX = -1;
                     break;
-                case ConsoleKey.D:
-                case ConsoleKey.RightArrow:
+                case ConsoleKey.NumPad6:
                     dirX = 1;
+                    break;
+                case ConsoleKey.NumPad7:
+                    {
+                        dirY = -1;
+                        dirX = -1;
+                    }
+                    break;
+                case ConsoleKey.NumPad9:
+                    {
+                        dirY = -1;
+                        dirX = 1;
+                    }
+                    break;
+                case ConsoleKey.NumPad1:
+                    {
+                        dirY = 1;
+                        dirX = -1;
+                    }
+                    break;
+                case ConsoleKey.NumPad3:
+                    {
+                        dirY = 1;
+                        dirX = 1;
+                    }
                     break;
                 case ConsoleKey.Spacebar:
                     return; // using for testing, player doesn't move

@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace RPGAlpha_AdrianDorey
 {
@@ -17,11 +13,11 @@ namespace RPGAlpha_AdrianDorey
             name = "Mage";
 
             healthSystem = new HealthSystem();
-            int randomHealth = random.Next(40, 75);
+            int randomHealth = random.Next(40, 65);
             healthSystem.health = randomHealth;
         }
 
-        public void MageMovement()
+        public void MageMovement() // moves to random places in the map every 6 turns
         {
             if (!healthSystem.mapDead)
             {
@@ -40,7 +36,7 @@ namespace RPGAlpha_AdrianDorey
             }
         }
 
-        private void AttackPlayer()
+        private void AttackPlayer() // attacks player within distance
         {
             if(PlayerDistance() <= 10)
                 Hero.healthSystem.TakeDamage(MageDamage);

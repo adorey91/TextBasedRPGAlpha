@@ -1,11 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Data.SqlTypes;
-using System.Diagnostics;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace RPGAlpha_AdrianDorey
 {
@@ -63,11 +57,12 @@ namespace RPGAlpha_AdrianDorey
                 Mages[i].EnemyInit(Hero, buildMap, traps, mapPositions);
                 Slime[i].EnemyInit(Hero, buildMap, traps, mapPositions);
             }
-
             while (!gameOver)
             {
                 buildMap.CheckMapChange();
                 WriteGameToScreen();
+
+                Console.WriteLine("Note: Player movement input is number pad(1,2,3,4,6,7,8,9)");
 
                 //movement
                 Hero.PlayerMovement();
@@ -91,10 +86,7 @@ namespace RPGAlpha_AdrianDorey
                         break;
                 }
 
-                if (Hero.healthSystem.dead)
-                    gameOver = true;
-                else
-                    CheckGameOver();
+                
             }
             WriteGameToScreen();
 
@@ -125,6 +117,11 @@ namespace RPGAlpha_AdrianDorey
 
         private void WriteGameToScreen()
         {
+            if (Hero.healthSystem.dead)
+                gameOver = true;
+            else
+                CheckGameOver();
+
             Console.Clear();
             Console.Write("Text Based RPG Alpha \n");
             hUD.ShowHUD();

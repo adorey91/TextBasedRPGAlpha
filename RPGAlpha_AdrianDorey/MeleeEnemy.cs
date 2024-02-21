@@ -1,14 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace RPGAlpha_AdrianDorey
 {
     internal class MeleeEnemy : Enemy
     {
         int MeleeDamage = 3;
+        Random randomMovement = new();
 
         public MeleeEnemy(Random random)
         {
@@ -16,27 +13,48 @@ namespace RPGAlpha_AdrianDorey
             name = "Slime";
 
             healthSystem = new HealthSystem();
-            int randomHealth = random.Next(20, 55);
+            int randomHealth = random.Next(20, 50);
             healthSystem.health = randomHealth;
         }
 
 
-
-        public void MeleeMovement()
+        public void MeleeMovement() // moves randomly unless close enough to the player.
         {
             if (!healthSystem.dead)
             {
-                Move(1);
+                if (PlayerDistance() <= 3)
+                {
+                    dx = Math.Sign(Hero.pos.x - pos.x);
+                    dy = Math.Sign(Hero.pos.y - pos.y);
 
-                while (!mapPositions.CheckValidPlacement(newDX, newDY, buildMap.mapLevel))
-                    Move(1);
+                    newDX = pos.x + dx;
+                    newDY = pos.y + dy;
 
-                if (newDX == Hero.pos.x && newDY == Hero.pos.y)
-                    AttackPlayer();
+                    if (!mapPositions.CheckValidPlacement(newDX, newDY, buildMap.mapLevel))
+                    {
+                        if (newDX == Hero.pos.x && newDY == Hero.pos.y)
+                            AttackPlayer();
+                        else
+                        {
+                            pos.x = newDX;
+                            pos.y = newDY;
+                        }
+                    }
+                }
                 else
                 {
-                    pos.x = newDX;
-                    pos.y = newDY;
+                    Move(1);
+
+                    while (!mapPositions.CheckValidPlacement(newDX, newDY, buildMap.mapLevel))
+                        Move(1);
+
+                    if (newDX == Hero.pos.x && newDY == Hero.pos.y)
+                        AttackPlayer();
+                    else
+                    {
+                        pos.x = newDX;
+                        pos.y = newDY;
+                    }
                 }
             }
         }
@@ -46,5 +64,14 @@ namespace RPGAlpha_AdrianDorey
             Hero.healthSystem.TakeDamage(MeleeDamage);
         }
 
+        private void Move(int spaces)
+        {
+            int direction = randomMovement.Next(0, 4);
+            dx = (direction == 2) ? spaces : (direction == 3) ? -spaces : 0;
+            dy = (direction == 0) ? spaces : (direction == 1) ? -spaces : 0;
+
+            newDX = pos.x + dx;
+            newDY = pos.y + dy;
+        }
     }
 }
