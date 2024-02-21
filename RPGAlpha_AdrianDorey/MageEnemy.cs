@@ -9,52 +9,41 @@ namespace RPGAlpha_AdrianDorey
     internal class MageEnemy : Enemy
     {
         int moveCount = 0;
-        MapPositions mapPositions;
+        int MageDamage = 4;
 
-        public void MageInit(MapPositions mapPositions)
-        {
-            this.mapPositions = mapPositions;
-        }
-
-        public MageEnemy()
+        public MageEnemy(Random random)
         {
             character = 'M';
             name = "Mage";
-           
-            Random random = new Random();
+
             healthSystem = new HealthSystem();
             int randomHealth = random.Next(40, 75);
             healthSystem.health = randomHealth;
         }
 
-        //public void MageMovement()
-        //{
-        //    if (!healthSystem.dead)
-        //    {
-        //        if(moveCount == 6)
-        //            RandomPlacement();
-        //        else
-        //        {
-        //            Move(1);
-
-        //            while (!buildMap.CheckBoundaries(newDX, newDY))
-        //                Move(1);
-
-        //            if (newDX == Hero.pos.x || newDY != Hero.pos.y)
-        //                AttackPlayer();
-        //            else
-        //            {
-        //                pos.x = newDX;
-        //                pos.y = newDY;
-        //                moveCount++;
-        //            }
-        //        }
-        //    }
-        //}
+        public void MageMovement()
+        {
+            if (!healthSystem.mapDead)
+            {
+                if (moveCount == 6)
+                {
+                    RandomPlacement();
+                    moveCount = 0;
+                }
+                else
+                {
+                    if (pos.x == Hero.pos.x || pos.y == Hero.pos.y)
+                        AttackPlayer();
+                    else
+                        moveCount++;
+                }
+            }
+        }
 
         private void AttackPlayer()
         {
-            Hero.TakeDamage(6);
+            if(PlayerDistance() <= 10)
+                Hero.healthSystem.TakeDamage(MageDamage);
         }
 
         private void RandomPlacement()
@@ -62,7 +51,7 @@ namespace RPGAlpha_AdrianDorey
             int x, y;
             do
             {
-                Random random = new Random();
+                Random random = new();
                 x = random.Next(0, buildMap.GetMapContent(buildMap.mapLevel).GetLength(1));
                 y = random.Next(0, buildMap.GetMapContent(buildMap.mapLevel).GetLength(0));
             } while (!mapPositions.CheckValidPlacement(x, y, buildMap.mapLevel));

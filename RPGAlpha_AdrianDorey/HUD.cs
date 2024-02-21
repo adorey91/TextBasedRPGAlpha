@@ -12,46 +12,46 @@ namespace RPGAlpha_AdrianDorey
         public Player Hero;
         public RangedEnemy[] Rangers;
         public MageEnemy[] Mages;
-        public MeleeEnemy[] Slimes;
-        public Item[] Money;
+        public MeleeEnemy[] Slime;
+        public Money[] money;
         public BuildMap buildMap;
 
-        public void Init(Player Hero, RangedEnemy[] Rangers,MageEnemy[] Mages, MeleeEnemy[] Slimes, Item[] Money, BuildMap buildMap)
+        public void Init(Player Hero, RangedEnemy[] Rangers,MageEnemy[] Mages, MeleeEnemy[] Slime, Money[] money, BuildMap buildMap)
         {
             this.Hero = Hero;
 
             this.Rangers = Rangers;
             this.Mages = Mages;
-            this.Slimes = Slimes;
-            this.Money = Money;
+            this.Slime = Slime;
+            this.money = money;
             this.buildMap = buildMap;
         }
         
         public void ShowHUD()   // handles hud output
         {
-            Console.WriteLine("+--------------------------+");
-            Console.WriteLine("Hero Health: " + Hero.healthSystem.health);
+            Console.Write("+--------------------------+ \n");
+            Console.Write("Hero Health: " + Hero.healthSystem.health + "\n");
             if(buildMap.mapLevel == 0)
             {
-                Console.WriteLine("Ranger0 Health: " + Rangers[0].healthSystem.health);
-                Console.WriteLine("Ranger1 Health: " + Rangers[1].healthSystem.health);
+                Console.Write("Ranger0 Health: " + Rangers[0].healthSystem.health + "\n");
+                Console.Write("Ranger1 Health: " + Rangers[1].healthSystem.health + "\n");
             }
             if(buildMap.mapLevel == 1)
             {
-                Console.WriteLine("Ranger2 Health: " + Rangers[2].healthSystem.health);
-                Console.WriteLine("Mage0 Health: " + Mages[0].healthSystem.health);
-                Console.WriteLine("Mage1 Health: " + Mages[1].healthSystem.health);
+                Console.Write("Ranger2 Health: " + Rangers[2].healthSystem.health + "\n");
+                Console.Write("Mage0 Health: " + Mages[0].healthSystem.health + "\n");
+                Console.Write("Mage1 Health: " + Mages[1].healthSystem.health + "\n");
             }
             if(buildMap.mapLevel == 2)
             {
-                Console.WriteLine("Mage2 Health: " + Mages[2].healthSystem.health);
-                Console.WriteLine("Slime0 Health: " + Slimes[0].healthSystem.health);
-                Console.WriteLine("Slime1 Health: " + Slimes[1].healthSystem.health);
-                Console.WriteLine("Slime2 Health: " + Slimes[2].healthSystem.health);
+                Console.Write("Mage2 Health: " + Mages[2].healthSystem.health + "\n");
+                Console.Write("Slime0 Health: " + Slime[0].healthSystem.health + "\n");
+                Console.Write("Slime1 Health: " + Slime[1].healthSystem.health + "\n");
+                Console.Write("Slime2 Health: " + Slime[2].healthSystem.health + "\n");
             }
             Console.Write("Item Picked Up: ");
 
-            foreach(Money money in Money)
+            foreach(Money money in money)
             {
                 if(money.collected)
                 {
@@ -62,10 +62,8 @@ namespace RPGAlpha_AdrianDorey
                     Console.Write(' ');
                 }
             }
-            
             Console.WriteLine();
             Console.WriteLine("+--------------------------+");
-            Console.WriteLine();
         }
     }
 }

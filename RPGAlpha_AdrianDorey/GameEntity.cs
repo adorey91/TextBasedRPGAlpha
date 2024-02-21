@@ -10,29 +10,20 @@ namespace RPGAlpha_AdrianDorey
     {
         public HealthSystem healthSystem;
         public BuildMap buildMap;
-        public bool attacked;
-        public int potionHeal = 7;
 
 
-        public void TakeDamage(int damage)
+
+        public void CheckForTraps(Traps[] trap, int startIndex, int endIndex, int newX, int newY)
         {
-            healthSystem.TakeDamage(damage);
-            attacked = true;
+            for (int i = startIndex; i < endIndex; i++)
+            {
+                trap[i].TryCollect(newX, newY);
+                if (trap[i].pickedUp)
+                {
+                    healthSystem.TrapDamage(trap[i].trapAmount);
+                    trap[i].pickedUp = false;
+                }
+            }
         }
-
-        public void Heal(int hp)
-        {
-            healthSystem.Heal(hp);
-        }
-
-        //public void CollectPotion(int posX,int posY)
-        //{
-        //    potion1.TryCollect(posX, posY);
-        //    potion2.TryCollect(posX, posY);
-        //    if (potion1.pickedUp)
-        //        Heal(potionHeal);
-        //    else if (potion2.pickedUp)
-        //        Heal(potionHeal);
-        //}
     }
 }

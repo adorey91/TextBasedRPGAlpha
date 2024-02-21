@@ -14,14 +14,15 @@ namespace RPGAlpha_AdrianDorey
         int dirX;
         int dirY;
         int damageAmount = 10;
-        public RangedEnemy[] Rangers;
-        public MageEnemy[] Mages;
-        public MeleeEnemy[] Slimes;
-        public Money[] money;
-        public Potion[] potion;
+        RangedEnemy[] Rangers;
+        MageEnemy[] Mages;
+        MeleeEnemy[] Slime;
+        Money[] money;
+        Potions[] potion;
+        Traps[] trap;
         public char character;
-        bool attackedEnemy = false;
         public string name = "Hero (Player)";
+        public bool attackedEnemy = false;
 
         public Player()
         {
@@ -30,23 +31,24 @@ namespace RPGAlpha_AdrianDorey
             character = 'H';
         }
 
-        public void Init(BuildMap buildMap, RangedEnemy[] Rangers, MageEnemy[] Mages, MeleeEnemy[] Slimes, Money[] money, Potion[] potion)
+        public void Init(BuildMap buildMap, RangedEnemy[] Rangers, MageEnemy[] Mages, MeleeEnemy[] Slime, Money[] money, Potions[] potion, Traps[] trap)
         {
             this.buildMap = buildMap;
             this.Rangers = Rangers;
             this.Mages = Mages;
-            this.Slimes = Slimes;
+            this.Slime = Slime;
             this.money = money;
             this.potion = potion;
+            this.trap = trap;
         }
 
         public void PlayerMovement()
         {
-            if (!healthSystem.dead)
+            if (!healthSystem.mapDead)
             {
                 PlayerInput();
 
-                if (dirX != 0 || dirY != 0)
+                if(dirX != 0 || dirY != 0)
                 {
                     int newX = pos.x + dirX;
                     int newY = pos.y + dirY;
@@ -63,68 +65,6 @@ namespace RPGAlpha_AdrianDorey
                 }
             }
         }
-
-
-        public void CheckEnemy(int newX, int newY, int levelName)
-        {
-            switch (levelName)
-            {
-                case 0:
-                    if (Rangers[0].pos.x == newX && Rangers[0].pos.y == newY && !Rangers[0].healthSystem.dead)
-                    {
-                        Rangers[0].TakeDamage(damageAmount);
-                        attackedEnemy = true;
-                    }
-                    if (Rangers[1].pos.x == newX && Rangers[1].pos.y == newY && !Rangers[1].healthSystem.dead)
-                    {
-                        Rangers[1].TakeDamage(damageAmount);
-                        attackedEnemy = true;
-                    }
-                    break;
-                case 1:
-                    if (Rangers[2].pos.x == newX && Rangers[2].pos.y == newY && !Rangers[2].healthSystem.dead)
-                    {
-                        Rangers[2].TakeDamage(damageAmount);
-                        attackedEnemy = true;
-                    }
-                    if (Mages[0].pos.x == newX && Mages[0].pos.y == newY && !Mages[0].healthSystem.dead)
-                    {
-                        Mages[0].TakeDamage(damageAmount);
-                        attackedEnemy = true;
-                    }
-                    if (Mages[1].pos.x == newX && Mages[1].pos.y == newY && !Mages[1].healthSystem.dead)
-                    {
-                        Mages[1].TakeDamage(damageAmount);
-                        attackedEnemy = true;
-                    }
-                    break;
-                case 2:
-                    if (Mages[2].pos.x == newX && Mages[2].pos.y == newY && !Mages[2].healthSystem.dead)
-                    {
-                        Mages[2].TakeDamage(damageAmount);
-                        attackedEnemy = true;
-                    }
-                    if (Slimes[0].pos.x == newX && Slimes[0].pos.y == newY && !Slimes[0].healthSystem.dead)
-                    {
-                        Slimes[0].TakeDamage(damageAmount);
-                        attackedEnemy = true;
-                    }
-                    if (Slimes[1].pos.x == newX && Slimes[1].pos.y == newY && Slimes[1].healthSystem.dead)
-                    {
-                        Slimes[1].TakeDamage(damageAmount);
-                        attackedEnemy = true;
-                    }
-                    if (Slimes[2].pos.x == newX && Slimes[2].pos.y == newY && !Slimes[2].healthSystem.dead)
-                    {
-                        Slimes[2].TakeDamage(damageAmount);
-                        attackedEnemy = true;
-                    }
-                    break;
-            }
-        }
-
-
-
 
         private void PlayerInput()
         {
@@ -168,25 +108,64 @@ namespace RPGAlpha_AdrianDorey
             switch (buildMap.mapLevel)
             {
                 case 0:
-                    if (money[0].pos.x == newX && money[0].pos.y == newY)
-                        money[0].TryCollect(newX, newY);
+                    money[0].TryCollect(newX, newY);
+                    CheckForTraps(trap, 0, 1, newX, newY);
+                    CheckForPotion(potion, 0, 1, newX, newY);
                     break;
                 case 1:
-                    if (money[1].pos.x == newX && money[1].pos.y == newY)
-                        money[1].TryCollect(newX, newY);
-                    if (money[2].pos.x == newX && money[2].pos.y == newY)
-                        money[2].TryCollect(newX, newY);
+                    money[1].TryCollect(newX, newY);
+                    money[2].TryCollect(newX, newY);
+                    CheckForTraps(trap, 1, 2, newX, newY);
+                    CheckForPotion(potion, 1, 2, newX, newY);
                     break;
                 case 2:
-                    if (money[3].pos.x == newX && money[3].pos.y == newY)
-                        money[3].TryCollect(newX, newY);
+                    money[3].TryCollect(newX, newY);
+                    CheckForTraps(trap, 1, 2, newX, newY);
+                    CheckForPotion(potion, 2, 4, newX, newY);
                     break;
             }
         }
 
-        public bool PlayerDied()
+        public void CheckEnemy(int newX, int newY, int levelName)
         {
-            return healthSystem.dead;
+            switch (levelName)
+            {
+                case 0:
+                    CheckForEnemies(Rangers, 0, 2, newX, newY);
+                    break;
+                case 1:
+                    CheckForEnemies(Rangers, 2, 3, newX, newY);
+                    CheckForEnemies(Mages, 0, 2, newX, newY);
+                    break;
+                case 2:
+                    CheckForEnemies(Mages, 2, 3, newX, newY);
+                    CheckForEnemies(Slime, 0, 3, newX, newY);
+                    break;
+            }
+        }
+
+        private void CheckForEnemies(Enemy[] enemies, int startIndex, int endIndex, int newX, int newY)
+        {
+            for (int i = startIndex; i < endIndex; i++)
+            {
+                if (enemies[i].pos.x == newX && enemies[i].pos.y == newY && !enemies[i].healthSystem.mapDead)
+                {
+                    enemies[i].healthSystem.TakeDamage(damageAmount);
+                    attackedEnemy = true;
+                }
+            }
+        }
+
+        private void CheckForPotion(Potions[] potion, int startIndex, int endIndex, int newX, int newY)
+        {
+            for (int i = startIndex; i < endIndex; i++)
+            {
+                potion[i].TryCollect(newX, newY);
+                if (potion[i].pickedUp)
+                {
+                    healthSystem.Heal(potion[i].potionHeal);
+                }
+            }
         }
     }
 }

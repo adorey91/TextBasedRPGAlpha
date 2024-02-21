@@ -13,21 +13,21 @@ namespace RPGAlpha_AdrianDorey
         public RangedEnemy[] Rangers;
         public MageEnemy[] Mages;
         public MeleeEnemy[] Slimes;
-        public Item[] Potions;
-        public Item[] Money;
-        public Item[] Traps;
+        public Potions[] potion;
+        public Money[] money;
+        public Traps[] trap;
         public BuildMap buildMap;
 
         public MapPositions(Player Hero, RangedEnemy[] Rangers, MageEnemy[] Mages, MeleeEnemy[] Slimes,
-                            Item[] Potion, Item[] Money, Item[] Trap, BuildMap buildMap)
+                            Potions[] potion, Money[] money, Traps[] trap, BuildMap buildMap)
         {
             this.Hero = Hero;
             this.Rangers = Rangers;
             this.Mages = Mages;
             this.Slimes = Slimes;
-            this.Potions = Potion;
-            this.Money = Money;
-            this.Traps = Trap;
+            this.potion = potion;
+            this.money = money;
+            this.trap = trap;
             this.buildMap = buildMap;
         }
 
@@ -40,7 +40,7 @@ namespace RPGAlpha_AdrianDorey
 
         private void RandomizePlacements()
         {
-            Random random = new Random();
+            Random random = new();
             PlaceCharactersRandomly(Rangers[0], random, 0);
             PlaceCharactersRandomly(Rangers[1], random, 0);
             PlaceCharactersRandomly(Rangers[2], random, 1);
@@ -50,17 +50,17 @@ namespace RPGAlpha_AdrianDorey
             PlaceCharactersRandomly(Slimes[0], random, 2);
             PlaceCharactersRandomly(Slimes[1], random, 2);
             PlaceCharactersRandomly(Slimes[2], random, 2);
-            PlaceItemsRandomly(Potions[0], random, 0);
-            PlaceItemsRandomly(Potions[1], random, 1);
-            PlaceItemsRandomly(Potions[2], random, 2);
-            PlaceItemsRandomly(Potions[3], random, 2);
-            PlaceItemsRandomly(Money[0], random, 0);
-            PlaceItemsRandomly(Money[1], random, 1);
-            PlaceItemsRandomly(Money[2], random, 1);
-            PlaceItemsRandomly(Money[3], random, 2);
-            PlaceItemsRandomly(Traps[0], random, 0);
-            PlaceItemsRandomly(Traps[1], random, 1);
-            PlaceItemsRandomly(Traps[2], random, 2);
+            PlaceItemsRandomly(potion[0], random, 0);
+            PlaceItemsRandomly(potion[1], random, 1);
+            PlaceItemsRandomly(potion[2], random, 2);
+            PlaceItemsRandomly(potion[3], random, 2);
+            PlaceItemsRandomly(money[0], random, 0);
+            PlaceItemsRandomly(money[1], random, 1);
+            PlaceItemsRandomly(money[2], random, 1);
+            PlaceItemsRandomly(money[3], random, 2);
+            PlaceItemsRandomly(trap[0], random, 0);
+            PlaceItemsRandomly(trap[1], random, 1);
+            PlaceItemsRandomly(trap[2], random, 2);
         }
 
         private void PlaceCharactersRandomly(Enemy character, Random random, int levelNumber)
@@ -89,13 +89,12 @@ namespace RPGAlpha_AdrianDorey
 
         public bool CheckValidPlacement(int x, int y, int levelNumber)
         {
-            return buildMap.CheckBoundaries(x, y, levelNumber) && IsEmptySpace(x, y, levelNumber);
+            return buildMap.CheckBoundaries(x, y, levelNumber) && IsEmptySpace(x, y, levelNumber) &&
+                buildMap.GetMapContent(levelNumber)[y, x] != '*';
         }
 
-        private bool IsEmptySpace(int x, int y, int mapLevel) 
+        private bool IsEmptySpace(int x, int y, int mapLevel)
         {
-            char[,] mapContent = buildMap.GetMapContent(mapLevel);
-
             if (Hero.pos.x == x && Hero.pos.y == y)
                 return false;
 
@@ -106,11 +105,11 @@ namespace RPGAlpha_AdrianDorey
                         return false;
                     if (Rangers[1].pos.x == x && Rangers[1].pos.y == y)
                         return false;
-                    if (Potions[0].pos.x == x && Potions[0].pos.y == y)
+                    if (potion[0].pos.x == x && potion[0].pos.y == y)
                         return false;
-                    if (Money[0].pos.x == x && Money[0].pos.y == y)
+                    if (money[0].pos.x == x && money[0].pos.y == y)
                         return false;
-                    if (Traps[0].pos.x == x && Traps[0].pos.y == y)
+                    if (trap[0].pos.x == x && trap[0].pos.y == y)
                         return false;
                     break;
                 case 1:
@@ -120,13 +119,13 @@ namespace RPGAlpha_AdrianDorey
                         return false;
                     if (Mages[1].pos.x == x && Mages[1].pos.y == y)
                         return false;
-                    if (Potions[1].pos.x == x && Potions[1].pos.y == y)
+                    if (potion[1].pos.x == x && potion[1].pos.y == y)
                         return false;
-                    if (Money[1].pos.x == x && Money[1].pos.y == y)
+                    if (money[1].pos.x == x && money[1].pos.y == y)
                         return false;
-                    if (Money[2].pos.x == x && Money[2].pos.y == y)
+                    if (money[2].pos.x == x && money[2].pos.y == y)
                         return false;
-                    if (Traps[1].pos.x == x && Traps[1].pos.y == y)
+                    if (trap[1].pos.x == x && trap[1].pos.y == y)
                         return false;
                     break;
                 case 2:
@@ -138,13 +137,13 @@ namespace RPGAlpha_AdrianDorey
                         return false;
                     if (Slimes[2].pos.x == x && Slimes[2].pos.y == y)
                         return false;
-                    if (Potions[2].pos.x == x && Potions[2].pos.y == y)
+                    if (potion[2].pos.x == x && potion[2].pos.y == y)
                         return false;
-                    if (Potions[3].pos.x == x && Potions[3].pos.y == y)
+                    if (potion[3].pos.x == x && potion[3].pos.y == y)
                         return false;
-                    if (Money[3].pos.x == x && Money[3].pos.y == y)
+                    if (money[3].pos.x == x && money[3].pos.y == y)
                         return false;
-                    if (Traps[2].pos.x == x && Traps[2].pos.y == y)
+                    if (trap[2].pos.x == x && trap[2].pos.y == y)
                         return false;
                     break;
             }

@@ -7,38 +7,23 @@ using System.Threading;
 
 namespace RPGAlpha_AdrianDorey
 {
-    internal class BuildMap
+    internal class BuildMap(MapLegendColours legendColours, Player Hero, RangedEnemy[] Rangers, MageEnemy[] Mages, MeleeEnemy[] Slimes,
+        Potions[] potions, Money[] money, Traps[] trap)
     {
-        public MapLegendColours legendColours;
+        public MapLegendColours legendColours = legendColours;
 
         public int mapLevel = 0;
         public int previousLevel = 0;
-        private string[] mapTextFiles = new string[] { "Map0.txt", "Map1.txt", "Map2.txt" };
-        private char[][,] allMapContents = new char[3][,];
+        private readonly string[] mapTextFiles = new string[] { "Map0.txt", "Map1.txt", "Map2.txt" };
+        private readonly char[][,] allMapContents = new char[3][,];
 
-        public Player Hero;
-        public RangedEnemy[] Rangers;
-        public MageEnemy[] Mages;
-        public MeleeEnemy[] Slime;
-        public Potion[] potions;
-        public Money[] money;
-        public Traps[] trap;
-
-
-
-        public BuildMap(MapLegendColours legendColours, Player Hero, RangedEnemy[] Rangers, MageEnemy[] Mages, MeleeEnemy[] Slimes,
-            Potion[] potions, Money[] money, Traps[] trap)
-        {
-            this.legendColours = legendColours;
-            this.Hero = Hero;
-            this.Rangers = Rangers;
-            this.Mages = Mages;
-            this.Slime = Slimes;
-            this.potions = potions;
-            this.money = money;
-            this.trap = trap;
-        }
-
+        public Player Hero = Hero;
+        public RangedEnemy[] Rangers = Rangers;
+        public MageEnemy[] Mages = Mages;
+        public MeleeEnemy[] Slime = Slimes;
+        public Potions[] potions = potions;
+        public Money[] money = money;
+        public Traps[] trap = trap;
 
         public char[][,] AllMapContents
         {
@@ -88,15 +73,15 @@ namespace RPGAlpha_AdrianDorey
 
         private char GetCharacterToDraw(int i, int j)
         {
-            if (i == Hero.pos.y && j == Hero.pos.x)
+            if (i == Hero.pos.y && j == Hero.pos.x && !Hero.healthSystem.mapDead)
                 return Hero.character;
 
             switch (mapLevel)
             {
                 case 0:
-                    if (Rangers[0].pos.x == j && Rangers[0].pos.y == i && !Rangers[0].healthSystem.dead)
+                    if (Rangers[0].pos.x == j && Rangers[0].pos.y == i && !Rangers[0].healthSystem.mapDead)
                         return Rangers[0].character;
-                    if (Rangers[1].pos.x == j && Rangers[1].pos.y == i && !Rangers[1].healthSystem.dead)
+                    if (Rangers[1].pos.x == j && Rangers[1].pos.y == i && !Rangers[1].healthSystem.mapDead)
                         return Rangers[1].character;
                     if (potions[0].pos.x == j && potions[0].pos.y == i && !potions[0].collected)
                         return potions[0].character;
@@ -106,11 +91,11 @@ namespace RPGAlpha_AdrianDorey
                         return trap[0].character;
                     break;
                 case 1:
-                    if (Rangers[2].pos.x == j && Rangers[2].pos.y == i && !Rangers[2].healthSystem.dead)
+                    if (Rangers[2].pos.x == j && Rangers[2].pos.y == i && !Rangers[2].healthSystem.mapDead)
                         return Rangers[2].character;
-                    if (Mages[0].pos.x == j && Mages[0].pos.y == i && !Mages[0].healthSystem.dead)
+                    if (Mages[0].pos.x == j && Mages[0].pos.y == i && !Mages[0].healthSystem.mapDead)
                         return Mages[0].character;
-                    if (Mages[1].pos.x == j && Mages[1].pos.y == i && !Mages[1].healthSystem.dead)
+                    if (Mages[1].pos.x == j && Mages[1].pos.y == i && !Mages[1].healthSystem.mapDead)
                         return Mages[1].character;
                     if (potions[1].pos.x == j && potions[1].pos.y == i && !potions[1].collected)
                         return potions[1].character;
@@ -122,13 +107,13 @@ namespace RPGAlpha_AdrianDorey
                         return trap[1].character;
                     break;
                 case 2:
-                    if (Mages[2].pos.x == j && Mages[2].pos.y == i && !Mages[2].healthSystem.dead)
+                    if (Mages[2].pos.x == j && Mages[2].pos.y == i && !Mages[2].healthSystem.mapDead)
                         return Mages[2].character;
-                    if (Slime[0].pos.x == j && Slime[0].pos.y == i && !Slime[0].healthSystem.dead)
+                    if (Slime[0].pos.x == j && Slime[0].pos.y == i && !Slime[0].healthSystem.mapDead)
                         return Slime[0].character;
-                    if (Slime[1].pos.x == j && Slime[1].pos.y == i && !Slime[1].healthSystem.dead)
+                    if (Slime[1].pos.x == j && Slime[1].pos.y == i && !Slime[1].healthSystem.mapDead)
                         return Slime[1].character;
-                    if (Slime[2].pos.x == j && Slime[2].pos.y == i && !Slime[2].healthSystem.dead)
+                    if (Slime[2].pos.x == j && Slime[2].pos.y == i && !Slime[2].healthSystem.mapDead)
                         return Slime[2].character;
                     if (potions[2].pos.x == j && potions[2].pos.y == i && !potions[2].collected)
                         return potions[2].character;
@@ -149,7 +134,7 @@ namespace RPGAlpha_AdrianDorey
                 GetMapContent(levelNumber)[y, x] != '#' && GetMapContent(levelNumber)[y, x] != '~' && GetMapContent(levelNumber)[y, x] != '^';
         }
 
-        public void CheckMapChange()
+        public void CheckMapChange() // changes hero position for the new map
         {
             switch (mapLevel)
             {
@@ -172,11 +157,11 @@ namespace RPGAlpha_AdrianDorey
                     {
                         mapLevel = 2;
                         Hero.pos.x = 37;
-                        Hero.pos.y = 20;
+                        Hero.pos.y = 14;
                     }
                     break;
                 case 2:
-                    if (Hero.pos.x == 37 && Hero.pos.y == 21)
+                    if (Hero.pos.x == 37 && Hero.pos.y == 15)
                     {
                         mapLevel = 1;
                         Hero.pos.x = 37;
@@ -184,13 +169,8 @@ namespace RPGAlpha_AdrianDorey
                     }
                     break;
             }
-
-            if (mapLevel == previousLevel) return;
-            else
-            {
+            if (mapLevel != previousLevel)
                 previousLevel = mapLevel;
-                MapInit();
-            }
         }
     }
 }

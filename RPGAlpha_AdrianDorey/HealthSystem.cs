@@ -9,41 +9,23 @@ namespace RPGAlpha_AdrianDorey
     internal class HealthSystem
     {
         public int health;
+        public bool hurt;
+        public bool hurtByTrap;
         public bool dead;
-        public bool floorDamage;
-        public bool trapDamage;
-        
+        public bool mapDead;
+        public bool cannotHeal;
+        public bool healed;
+
+
         public void TakeDamage(int damage)
         {
             health -= damage;
+            hurt = true;
 
             if (health <= 0)
             {
                 health = 0;
-                dead = true;
-            }
-        }
-
-        public void FloorDamage(int damage)
-        {
-            health -= damage;
-            floorDamage = true;
-
-            if(health <= 0)
-            {
-                health = 0;
-                dead = true;
-            }
-        }
-
-        public void TrapDamage(int damage)
-        {
-            health -= damage;
-            trapDamage = true;
-
-            if(health <=0)
-            {
-                health = 0;
+                mapDead = true;
                 dead = true;
             }
         }
@@ -51,8 +33,26 @@ namespace RPGAlpha_AdrianDorey
         public void Heal(int hp)
         {
             health += hp;
-            if (health > 100)
+            healed = true;
+            if (health >= 100)
+            {
                 health = 100;
+                cannotHeal = true;
+            }
+
+        }
+
+        public void TrapDamage(int damage)
+        {
+            health -= damage;
+            hurtByTrap = true;
+
+            if (health <= 0)
+            {
+                health = 0;
+                mapDead = true;
+                dead = true;
+            }
         }
     }
 }

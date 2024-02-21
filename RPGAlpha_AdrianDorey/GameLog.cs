@@ -12,111 +12,131 @@ namespace RPGAlpha_AdrianDorey
         public Player Hero;
         public RangedEnemy[] Rangers;
         public MageEnemy[] Mages;
-        public MeleeEnemy[] Slimes;
-        public Money[] Money;
-        public Potion[] potion;
+        public MeleeEnemy[] Slime;
+        public Money[] money;
+        public Potions[] potion;
         public Traps[] trap;
 
-
-        public void Init(Player Hero, RangedEnemy[] Rangers, MageEnemy[] Mages, MeleeEnemy[] Slimes, Money[] money, Potion[] potion, Traps[] trap)
+        public void Init(Player Hero, RangedEnemy[] Rangers, MageEnemy[] Mages, MeleeEnemy[] Slime, Money[] money, Potions[] potion, Traps[] trap)
         {
             this.Hero = Hero;
             this.Rangers = Rangers;
             this.Mages = Mages;
-            this.Slimes = Slimes;
+            this.Slime = Slime;
             this.potion = potion;
-            this.Money = money;
+            this.money = money;
             this.trap = trap;
         }
 
         public void PrintGameLog()
         {
-            Console.WriteLine();
-            Console.WriteLine("Game Log:");
-           // LogAttackText();
-            LogFloorTrapText();
+            Console.Write("Game Log: \n");
+            LogAttackText();
+            LogTrapText();
             LogPickUpText();
             LogHealingText();
             LogEnemyDeathText();
-            Console.WriteLine();
         }
 
-        //private void LogAttackText()
-        //{
-        //    if (Badman1.healthSystem.attackedByEnemy)
-        //    {
-        //        Console.WriteLine("Player attacked Badman1");
-        //        Badman1.healthSystem.attackedByEnemy = false;
-        //    }
-        //    if (Badman2.healthSystem.attackedByEnemy)
-        //    {
-        //        Console.WriteLine("Player attacked Badman2");
-        //        Badman2.healthSystem.attackedByEnemy = false;
-        //    }
-        //    if (Hero.healthSystem.attackedByEnemy)
-        //    {
-        //        Console.WriteLine("Enemy attacked player");
-        //        Hero.healthSystem.attackedByEnemy = false;
-        //    }
-        //}
-
-        private void LogFloorTrapText()
+        private void LogAttackText()
         {
-            if (Hero.healthSystem.trapDamage)
+            if (Hero.healthSystem.hurt)
             {
-                Console.WriteLine("Player damaged by a trap");
-                //trap.collected = true;
-                Hero.healthSystem.trapDamage = false;
+                Console.Write(Hero.name + " was attacked \n");
+                Hero.healthSystem.hurt = false;
             }
-            //if (Enemy.healthSystem.floorDamage) // need to fix this
-            //{
-            //    Console.WriteLine("Enemy damaged by poison spill");
-            //    Enemy.healthSystem.floorDamage = false;
-            //    Enemy.healthSystem.floorDamage = false;
-            //}
+            CheckAndLogEnemyHurtStatus(Rangers);
+            CheckAndLogEnemyHurtStatus(Mages);
+            CheckAndLogEnemyHurtStatus(Slime);
+        }
+
+        private void CheckAndLogEnemyHurtStatus(Enemy[] enemies)
+        {
+            for (int i = 0; i < enemies.Length; i++)
+            {
+                if (enemies[i].healthSystem.hurt)
+                {
+                    Console.Write("Attacked " + enemies[i].name + i + "\n");
+                    enemies[i].healthSystem.hurt = false;
+                }
+            }
+        }
+
+
+        private void LogTrapText()
+        {
+            if (Hero.healthSystem.hurtByTrap)
+            {
+                Console.Write(Hero.name + " hurt by a trap \n");
+                Hero.healthSystem.hurtByTrap = false;
+            }
+            CheckAndLogEnemyTrapStatus(Rangers);
+            CheckAndLogEnemyTrapStatus(Mages);
+            CheckAndLogEnemyTrapStatus(Slime);
+        }
+
+        private void CheckAndLogEnemyTrapStatus(Enemy[] enemies)
+        {
+            for (int i = 0; i < enemies.Length; i++)
+            {
+                if (enemies[i].healthSystem.hurtByTrap)
+                {
+                    Console.Write(enemies[i].name + i + " hurt by a trap \n");
+                    enemies[i].healthSystem.hurtByTrap = false;
+                }
+            }
         }
 
         private void LogPickUpText()
         {
-            foreach(Money money in Money)
+            foreach (Money money in money)
             {
                 if (money.pickedUp)
                 {
-                    Console.WriteLine("Player picked up money");
-                    money.pickedUp = false;
+                    Console.Write("Player picked up money \n");
                 }
-
+                money.pickedUp = false;
             }
         }
 
         private void LogHealingText()
         {
-            foreach(Potion potion in potion)
+            foreach (Potions potion in potion)
             {
-                if(potion.pickedUp)
+                if (potion.pickedUp)
                 {
-                    if (Hero.healthSystem.health < 100)
-                        Console.Write("Player picked up potion");
-                    else if (Hero.healthSystem.health >= 100)
-                        Console.Write("Player cannot heal anymore");
+                    if (Hero.healthSystem.healed)
+                    {
+                        Console.Write("Player picked up potion \n");
+                        Hero.healthSystem.healed = false;
+                    }
+                    if(Hero.healthSystem.cannotHeal)
+                    {
+                        Console.Write("Player cannot heal anymore \n");
+                        Hero.healthSystem.cannotHeal = false;
+                    }
                 }
-                Console.WriteLine();
                 potion.pickedUp = false;
             }
         }
 
         private void LogEnemyDeathText()
         {
-            //if (Badman1.healthSystem.dead && badman1)
-            //{
-            //    Console.WriteLine("Badman1 died");
-            //    badman1 = false;
-            //}
-            //else if (Badman2.healthSystem.dead && badman2)
-            //{
-            //    Console.WriteLine("Badman2 died");
-            //    badman2 = false;
-            //}
+            CheckAndLogEnemyDeath(Rangers);
+            CheckAndLogEnemyDeath(Mages);
+            CheckAndLogEnemyDeath(Slime);
+        }
+
+        private void CheckAndLogEnemyDeath(Enemy[] enemies)
+        {
+            for (int i = 0; i < enemies.Length; i++)
+            {
+                if (enemies[i].healthSystem.dead)
+                {
+                    Console.Write(enemies[i].name + i + " has died \n");
+                    enemies[i].healthSystem.dead = false;
+                }
+            }
         }
     }
 }

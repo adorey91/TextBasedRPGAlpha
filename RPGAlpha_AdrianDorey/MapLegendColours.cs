@@ -9,35 +9,35 @@ namespace RPGAlpha_AdrianDorey
     internal class MapLegendColours
     {
         public Player Hero;
-        public RangedEnemy Ranger;
+        public RangedEnemy Rangers;
         public MageEnemy Mage;
         public MeleeEnemy Slime;
         public Money money;
         public Traps trap;
-        public Potion potion;
+        public Potions potion;
 
-        public MapLegendColours(Player hero, RangedEnemy ranger, MageEnemy mage, MeleeEnemy slime, Money money, Traps trap, Potion potion)
+        public MapLegendColours(Player Hero, RangedEnemy Rangers, MageEnemy Mages, MeleeEnemy Slime, Money money, Traps trap, Potions potion)
         {
-            this.Hero = hero;
-            this.Ranger = ranger;
-            this.Mage = mage;
-            this.Slime = slime;
+            this.Hero = Hero;
+            this.Rangers = Rangers;
+            this.Mage = Mages;
+            this.Slime = Slime;
             this.money = money;
             this.trap = trap;
             this.potion = potion;
         }
         public void DisplayLegend() // displays legend on the bottom of the map.
         {
-            Console.WriteLine("+--------------------------+");
-            Console.WriteLine("Map Legend:");
+            Console.Write("+--------------------------+" + "\n");
+            Console.Write("Map Legend:" + "\n");
             DisplaySymbol(Hero.character, Hero.name);
-            DisplaySymbol(Ranger.character, Ranger.name);
+            DisplaySymbol(Rangers.character, Rangers.name);
             DisplaySymbol(Mage.character, Mage.name);
             DisplaySymbol(Slime.character, Slime.name);
             DisplaySymbol(money.character, money.name);
             DisplaySymbol(potion.character, potion.name);
             DisplaySymbol(trap.character, trap.name);
-            DisplaySymbol('*', "Next Area");
+            DisplaySymbol('*', "Next Area" );
             DisplaySymbol('~', "Deep Water");
             DisplaySymbol('^', "Mountains");
             DisplaySymbol('#', "Walls");
@@ -49,7 +49,7 @@ namespace RPGAlpha_AdrianDorey
             MapColor(symbol);
             Console.Write(symbol);
             Console.ResetColor();
-            Console.WriteLine($" = {description}");
+            Console.Write($" = {description}" + "\n");
         }
 
         public void MapColor(char c)    // handles map color
@@ -68,15 +68,15 @@ namespace RPGAlpha_AdrianDorey
                     Console.ForegroundColor = ConsoleColor.DarkBlue;
                     Console.BackgroundColor = ConsoleColor.Blue;
                     break;
-                case '$': // Money (item)
+                case '$': // money (item)
                     Console.ForegroundColor = ConsoleColor.Black;
                     Console.BackgroundColor = ConsoleColor.Green;
                     break;
-                case 'T': // Traps (item)
+                case 'T': // trap (item)
                     Console.ForegroundColor = ConsoleColor.DarkCyan;
                     Console.BackgroundColor = ConsoleColor.Black;
                     break;
-                case 'S': // Slimes
+                case 'S': // Slime
                     Console.ForegroundColor = ConsoleColor.Green;
                     break;
                 case 'R': // Ranged enemy
@@ -91,7 +91,7 @@ namespace RPGAlpha_AdrianDorey
                 case 'δ': // Potion (item)
                     Console.ForegroundColor = ConsoleColor.Red;
                     break;
-                case '*':
+                case '*': // next area
                     Console.ForegroundColor = ConsoleColor.Yellow;
                     break;
 

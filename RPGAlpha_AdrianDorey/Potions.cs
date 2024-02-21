@@ -6,21 +6,14 @@ using System.Threading.Tasks;
 
 namespace RPGAlpha_AdrianDorey
 {
-    internal class Potion : Item
+    internal class Potions : Item
     {
-         public int potionHeal = 8;
-        public HealthSystem healthSystem;
+        public int potionHeal = 20;
 
-        public Potion()
+        public Potions()
         {
             character = 'δ';
             name = "Potion";
-        }
-
-        public void PotionCollect(int heal = 7)
-        {
-            healthSystem.Heal(heal);
-
         }
     }
 }
