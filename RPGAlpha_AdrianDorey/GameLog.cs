@@ -16,6 +16,7 @@ namespace RPGAlpha_AdrianDorey
         public Money[] money;
         public Potions[] potion;
         public Traps[] trap;
+        public string enemyAttack;
 
         public void Init(Player Hero, RangedEnemy[] Rangers, MageEnemy[] Mages, MeleeEnemy[] Slime, Money[] money, Potions[] potion, Traps[] trap)
         {
@@ -43,8 +44,9 @@ namespace RPGAlpha_AdrianDorey
         {
             if (Hero.healthSystem.hurt)
             {
-                Console.Write(Hero.name + " was attacked \n");
+                Console.Write(Hero.name + " was attacked" + enemyAttack +"\n");
                 Hero.healthSystem.hurt = false;
+                enemyAttack = null;
             }
             CheckAndLogEnemyHurtStatus(Rangers);
             CheckAndLogEnemyHurtStatus(Mages);

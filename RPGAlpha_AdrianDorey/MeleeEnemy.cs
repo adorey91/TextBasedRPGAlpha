@@ -62,6 +62,7 @@ namespace RPGAlpha_AdrianDorey
         private void AttackPlayer()
         {
             Hero.healthSystem.TakeDamage(MeleeDamage);
+            log.enemyAttack = " by Slime sludge";
         }
 
         private void Move(int spaces)

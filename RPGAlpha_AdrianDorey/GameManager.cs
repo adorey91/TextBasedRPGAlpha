@@ -53,16 +53,14 @@ namespace RPGAlpha_AdrianDorey
             log.Init(Hero, Rangers, Mages, Slime, money, potion, traps);
             for (int i = 0; i < 3; i++)
             {
-                Rangers[i].EnemyInit(Hero, buildMap, traps, mapPositions);
-                Mages[i].EnemyInit(Hero, buildMap, traps, mapPositions);
-                Slime[i].EnemyInit(Hero, buildMap, traps, mapPositions);
+                Rangers[i].EnemyInit(Hero, buildMap, traps, mapPositions, log);
+                Mages[i].EnemyInit(Hero, buildMap, traps, mapPositions, log);
+                Slime[i].EnemyInit(Hero, buildMap, traps, mapPositions, log);
             }
             while (!gameOver)
             {
                 buildMap.CheckMapChange();
                 WriteGameToScreen();
-
-                Console.WriteLine("Note: Player movement input is number pad(1,2,3,4,6,7,8,9)");
 
                 //movement
                 Hero.PlayerMovement();

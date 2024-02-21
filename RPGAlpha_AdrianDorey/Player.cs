@@ -68,37 +68,37 @@ namespace RPGAlpha_AdrianDorey
 
             switch (input.Key)
             {
-                case ConsoleKey.NumPad8:
+                case ConsoleKey.W:
                     dirY = -1;
                     break;
-                case ConsoleKey.NumPad2:
+                case ConsoleKey.S:
                     dirY = 1;
                     break;
-                case ConsoleKey.NumPad4:
+                case ConsoleKey.A:
                     dirX = -1;
                     break;
-                case ConsoleKey.NumPad6:
+                case ConsoleKey.D:
                     dirX = 1;
                     break;
-                case ConsoleKey.NumPad7:
+                case ConsoleKey.Q:
                     {
                         dirY = -1;
                         dirX = -1;
                     }
                     break;
-                case ConsoleKey.NumPad9:
+                case ConsoleKey.E:
                     {
                         dirY = -1;
                         dirX = 1;
                     }
                     break;
-                case ConsoleKey.NumPad1:
+                case ConsoleKey.Z:
                     {
                         dirY = 1;
                         dirX = -1;
                     }
                     break;
-                case ConsoleKey.NumPad3:
+                case ConsoleKey.C:
                     {
                         dirY = 1;
                         dirX = 1;

@@ -38,8 +38,11 @@ namespace RPGAlpha_AdrianDorey
 
         private void AttackPlayer() // attacks player within distance
         {
-            if(PlayerDistance() <= 10)
+            if (PlayerDistance() <= 10)
+            {
                 Hero.healthSystem.TakeDamage(MageDamage);
+                log.enemyAttack = " by mage magic";
+            }
         }
 
         private void RandomPlacement()

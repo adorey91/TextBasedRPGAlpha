@@ -28,7 +28,7 @@ namespace RPGAlpha_AdrianDorey
                     newDX = pos.x + dx;
                     newDY = pos.y + dy;
 
-                    if (PlayerDistance() >= 3 && PlayerDistance() <=5)
+                    if (PlayerDistance() <= 5)
                         AttackPlayer();
                     else
                     {
@@ -58,6 +58,7 @@ namespace RPGAlpha_AdrianDorey
         private void AttackPlayer()
         {
             Hero.healthSystem.TakeDamage(RangerDamage);
+            log.enemyAttack = " by Ranger arrow";
         }
     }
 }

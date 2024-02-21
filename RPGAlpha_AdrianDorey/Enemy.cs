@@ -9,18 +9,20 @@ namespace RPGAlpha_AdrianDorey
         public string name;
         public Traps[] trap;
         public MapPositions mapPositions;
-        
+        public GameLog log;
+
         public int dx;
         public int dy;
         public int newDY;
         public int newDX;
 
-        public void EnemyInit(Player Hero, BuildMap buildMap, Traps[] trap, MapPositions mapPositions)
+        public void EnemyInit(Player Hero, BuildMap buildMap, Traps[] trap, MapPositions mapPositions, GameLog log)
         {
             this.Hero = Hero;
             this.buildMap = buildMap;
             this.trap = trap;
             this.mapPositions = mapPositions;
+            this.log = log;
         }
 
         public int PlayerDistance() // calculates distance to player
