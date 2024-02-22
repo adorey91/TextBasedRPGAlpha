@@ -126,6 +126,8 @@ namespace RPGAlpha_AdrianDorey
 
         private void WriteGameToScreen()
         {
+            Console.SetWindowSize(80, 50);
+            Console.CursorVisible = false;
             for (int i = 0; i < 4; i++)
             {
                 Console.Clear(); // Clear the console before updating the text
@@ -142,6 +144,9 @@ namespace RPGAlpha_AdrianDorey
 
         private void TutorialText()
         {
+            Console.SetWindowSize(80, 50);
+            Console.CursorVisible = false;
+
             Console.Write("Text Based RPG Alpha \n");
             Console.WriteLine();
             Console.WriteLine("Move:");

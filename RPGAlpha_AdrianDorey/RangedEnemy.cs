@@ -58,7 +58,7 @@ namespace RPGAlpha_AdrianDorey
         private void AttackPlayer()
         {
             Hero.healthSystem.TakeDamage(RangerDamage);
-            log.enemyAttack = $" by Ranger arrow - {RangerDamage} damage";
+            log.enemyAttack = $"by Ranger arrow - {RangerDamage} damage";
         }
     }
 }

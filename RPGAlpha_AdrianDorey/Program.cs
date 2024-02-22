@@ -10,6 +10,7 @@ namespace RPGAlpha_AdrianDorey
         {
             Console.SetWindowSize(100, 50);
             Console.CursorVisible = false;
+
             gameManager.Gameplay();
         }
     }

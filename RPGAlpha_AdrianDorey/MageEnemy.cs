@@ -41,7 +41,7 @@ namespace RPGAlpha_AdrianDorey
             if (PlayerDistance() <= 10)
             {
                 Hero.healthSystem.TakeDamage(MageDamage);
-                log.enemyAttack = $" by mage magic - {MageDamage} damage";
+                log.enemyAttack = $"by mage magic - {MageDamage} damage";
             }
         }
 
