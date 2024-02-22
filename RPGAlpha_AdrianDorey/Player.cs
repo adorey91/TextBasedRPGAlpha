@@ -6,7 +6,7 @@ namespace RPGAlpha_AdrianDorey
     {
         int dirX;
         int dirY;
-        int damageAmount = 10;
+        public int damageAmount = 10;
         RangedEnemy[] Rangers;
         MageEnemy[] Mages;
         MeleeEnemy[] Slime;
@@ -16,6 +16,7 @@ namespace RPGAlpha_AdrianDorey
         public char character;
         public string name = "Hero (Player)";
         public bool attackedEnemy = false;
+        public bool itemPickedUp = false;
 
         public Player()
         {
@@ -48,11 +49,17 @@ namespace RPGAlpha_AdrianDorey
 
                     if (buildMap.CheckBoundaries(newX, newY, buildMap.mapLevel))
                     {
-                        CheckEnemy(newX, newY, buildMap.mapLevel);
+                        CheckEnemy(newX, newY);
+                        ItemPickups(newX, newY);
 
-                        if (!attackedEnemy)
-                            MovePlayer(newX, newY);
+                        if (!attackedEnemy && !itemPickedUp)
+                        {
+                            pos.x = newX;
+                            pos.y = newY;
 
+                            CheckTraps(newX, newY);
+                        }
+                        itemPickedUp = false;
                         attackedEnemy = false;
                     }
                 }
@@ -108,40 +115,48 @@ namespace RPGAlpha_AdrianDorey
                     return; // using for testing, player doesn't move
                 case ConsoleKey.Escape:
                     System.Environment.Exit(0);
-                    return; // using for testing, player doesn't move
+                    return; 
             }
         }
 
-        private void MovePlayer(int newX, int newY)
+        private void ItemPickups(int newX, int newY)
         {
-            pos.x = newX;
-            pos.y = newY;
-
-
             switch (buildMap.mapLevel)
             {
                 case 0:
-                    money[0].TryCollect(newX, newY);
-                    CheckForTraps(trap, 0, 1, newX, newY);
-                    CheckForPotion(potion, 0, 1, newX, newY);
+                    CheckForMoney(0, 1, newX, newY);
+                    CheckForPotion(0, 1, newX, newY);
                     break;
                 case 1:
-                    money[1].TryCollect(newX, newY);
-                    money[2].TryCollect(newX, newY);
-                    CheckForTraps(trap, 1, 2, newX, newY);
-                    CheckForPotion(potion, 1, 2, newX, newY);
+                    CheckForMoney(1, 3, newX, newY);
+                    CheckForPotion(1, 2, newX, newY);
                     break;
                 case 2:
-                    money[3].TryCollect(newX, newY);
-                    CheckForTraps(trap, 1, 2, newX, newY);
-                    CheckForPotion(potion, 2, 4, newX, newY);
+                    CheckForMoney(3, 4, newX, newY);
+                    CheckForPotion(2, 4, newX, newY);
                     break;
             }
         }
 
-        public void CheckEnemy(int newX, int newY, int levelName)
+        private void CheckTraps(int newX, int newY)
         {
-            switch (levelName)
+            switch (buildMap.mapLevel)
+            {
+                case 0:
+                    CheckForTraps(trap, 0, 1, newX, newY);
+                    break;
+                case 1:
+                    CheckForTraps(trap, 1, 2, newX, newY);
+                    break;
+                case 2:
+                    CheckForTraps(trap, 1, 2, newX, newY);
+                    break;
+            }
+        }
+
+        private void CheckEnemy(int newX, int newY)
+        {
+            switch (buildMap.mapLevel)
             {
                 case 0:
                     CheckForEnemies(Rangers, 0, 2, newX, newY);
@@ -157,7 +172,7 @@ namespace RPGAlpha_AdrianDorey
             }
         }
 
-        private void CheckForEnemies(Enemy[] enemies, int startIndex, int endIndex, int newX, int newY)
+        private void CheckForEnemies(Enemy[] enemies, int startIndex, int endIndex, int newX, int newY) // start index is the beginning of the array of that enemy and the end is the last one to count
         {
             for (int i = startIndex; i < endIndex; i++)
             {
@@ -169,7 +184,7 @@ namespace RPGAlpha_AdrianDorey
             }
         }
 
-        private void CheckForPotion(Potions[] potion, int startIndex, int endIndex, int newX, int newY)
+        private void CheckForPotion(int startIndex, int endIndex, int newX, int newY)
         {
             for (int i = startIndex; i < endIndex; i++)
             {
@@ -177,7 +192,18 @@ namespace RPGAlpha_AdrianDorey
                 if (potion[i].pickedUp)
                 {
                     healthSystem.Heal(potion[i].potionHeal);
+                    itemPickedUp = true;
                 }
+            }
+        }
+
+        private void CheckForMoney(int startIndex, int endIndex, int newX, int newY)
+        {
+            for (int i = startIndex; i < endIndex; i++)
+            {
+                money[i].TryCollect(newX, newY);
+                if (money[i].pickedUp)
+                    itemPickedUp = true;
             }
         }
     }

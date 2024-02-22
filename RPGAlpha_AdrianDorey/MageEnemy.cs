@@ -5,7 +5,7 @@ namespace RPGAlpha_AdrianDorey
     internal class MageEnemy : Enemy
     {
         int moveCount = 0;
-        int MageDamage = 4;
+        int MageDamage = 2;
 
         public MageEnemy(Random random)
         {
@@ -41,7 +41,7 @@ namespace RPGAlpha_AdrianDorey
             if (PlayerDistance() <= 10)
             {
                 Hero.healthSystem.TakeDamage(MageDamage);
-                log.enemyAttack = " by mage magic";
+                log.enemyAttack = $" by mage magic - {MageDamage} damage";
             }
         }
 
@@ -53,7 +53,7 @@ namespace RPGAlpha_AdrianDorey
                 Random random = new();
                 x = random.Next(0, buildMap.GetMapContent(buildMap.mapLevel).GetLength(1));
                 y = random.Next(0, buildMap.GetMapContent(buildMap.mapLevel).GetLength(0));
-            } while (!mapPositions.CheckValidPlacement(x, y, buildMap.mapLevel));
+            } while (!CheckValidPlacement(x, y, buildMap.mapLevel));
 
             pos = new Point2D { x = x, y = y };
         }

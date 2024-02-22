@@ -44,7 +44,7 @@ namespace RPGAlpha_AdrianDorey
         {
             if (Hero.healthSystem.hurt)
             {
-                Console.Write(Hero.name + " was attacked" + enemyAttack +"\n");
+                Console.Write($"{Hero.name} was attacked {enemyAttack} \n");
                 Hero.healthSystem.hurt = false;
                 enemyAttack = null;
             }
@@ -59,18 +59,17 @@ namespace RPGAlpha_AdrianDorey
             {
                 if (enemies[i].healthSystem.hurt)
                 {
-                    Console.Write("Attacked " + enemies[i].name + i + "\n");
+                    Console.Write($"Attacked {enemies[i].name}{i} - {Hero.damageAmount} damage \n");
                     enemies[i].healthSystem.hurt = false;
                 }
             }
         }
 
-
         private void LogTrapText()
         {
             if (Hero.healthSystem.hurtByTrap)
             {
-                Console.Write(Hero.name + " hurt by a trap \n");
+                Console.Write($"{Hero.name} hurt by a trap \n");
                 Hero.healthSystem.hurtByTrap = false;
             }
             CheckAndLogEnemyTrapStatus(Rangers);
@@ -84,7 +83,7 @@ namespace RPGAlpha_AdrianDorey
             {
                 if (enemies[i].healthSystem.hurtByTrap)
                 {
-                    Console.Write(enemies[i].name + i + " hurt by a trap \n");
+                    Console.Write($"{enemies[i].name}{i} hurt by a trap \n");
                     enemies[i].healthSystem.hurtByTrap = false;
                 }
             }
@@ -96,7 +95,7 @@ namespace RPGAlpha_AdrianDorey
             {
                 if (money.pickedUp)
                 {
-                    Console.Write("Player picked up money \n");
+                    Console.Write($"{Hero.name} picked up money \n");
                 }
                 money.pickedUp = false;
             }
@@ -110,12 +109,12 @@ namespace RPGAlpha_AdrianDorey
                 {
                     if (Hero.healthSystem.healed)
                     {
-                        Console.Write("Player picked up potion \n");
+                        Console.Write($"{Hero.name} picked up potion, healed {potion.potionHeal} \n");
                         Hero.healthSystem.healed = false;
                     }
                     if(Hero.healthSystem.cannotHeal)
                     {
-                        Console.Write("Player cannot heal anymore \n");
+                        Console.Write($"{Hero.name} cannot heal anymore \n");
                         Hero.healthSystem.cannotHeal = false;
                     }
                 }
@@ -136,7 +135,7 @@ namespace RPGAlpha_AdrianDorey
             {
                 if (enemies[i].healthSystem.dead)
                 {
-                    Console.Write(enemies[i].name + i + " has died \n");
+                    Console.Write($"{enemies[i].name}{i} has died \n");
                     enemies[i].healthSystem.dead = false;
                 }
             }

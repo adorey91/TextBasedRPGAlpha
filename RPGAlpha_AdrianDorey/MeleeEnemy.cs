@@ -4,7 +4,7 @@ namespace RPGAlpha_AdrianDorey
 {
     internal class MeleeEnemy : Enemy
     {
-        int MeleeDamage = 3;
+        int MeleeDamage = 1;
         Random randomMovement = new();
 
         public MeleeEnemy(Random random)
@@ -30,7 +30,7 @@ namespace RPGAlpha_AdrianDorey
                     newDX = pos.x + dx;
                     newDY = pos.y + dy;
 
-                    if (!mapPositions.CheckValidPlacement(newDX, newDY, buildMap.mapLevel))
+                    if (!CheckValidPlacement(newDX, newDY, buildMap.mapLevel))
                     {
                         if (newDX == Hero.pos.x && newDY == Hero.pos.y)
                             AttackPlayer();
@@ -45,7 +45,7 @@ namespace RPGAlpha_AdrianDorey
                 {
                     Move(1);
 
-                    while (!mapPositions.CheckValidPlacement(newDX, newDY, buildMap.mapLevel))
+                    while (!CheckValidPlacement(newDX, newDY, buildMap.mapLevel))
                         Move(1);
 
                     if (newDX == Hero.pos.x && newDY == Hero.pos.y)
@@ -62,7 +62,7 @@ namespace RPGAlpha_AdrianDorey
         private void AttackPlayer()
         {
             Hero.healthSystem.TakeDamage(MeleeDamage);
-            log.enemyAttack = " by Slime sludge";
+            log.enemyAttack = $" by Slime sludge - {MeleeDamage} damage";
         }
 
         private void Move(int spaces)

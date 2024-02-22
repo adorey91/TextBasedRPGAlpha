@@ -24,7 +24,7 @@ namespace RPGAlpha_AdrianDorey
         
         public void ShowHUD()   // handles hud output
         {
-            Console.Write("+--------------------------+ \n");
+            Console.WriteLine("+--------------------+");
             Console.Write("Hero Health: " + Hero.healthSystem.health + "\n");
             if(buildMap.mapLevel == 0)
             {
@@ -58,7 +58,7 @@ namespace RPGAlpha_AdrianDorey
                 }
             }
             Console.WriteLine();
-            Console.WriteLine("+--------------------------+");
+            Console.WriteLine();
         }
     }
 }

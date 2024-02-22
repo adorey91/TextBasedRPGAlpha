@@ -3,23 +3,35 @@ using System.IO;
 
 namespace RPGAlpha_AdrianDorey
 {
-    internal class BuildMap(MapLegendColours legendColours, Player Hero, RangedEnemy[] Rangers, MageEnemy[] Mages, MeleeEnemy[] Slimes,
-        Potions[] potions, Money[] money, Traps[] trap)
+    internal class BuildMap()
     {
-        public MapLegendColours legendColours = legendColours;
-
         public int mapLevel = 0;
         public int previousLevel = 0;
-        private readonly string[] mapTextFiles = new string[] { "Map0.txt", "Map1.txt", "Map2.txt" };
-        private readonly char[][,] allMapContents = new char[3][,];
+        private string[] mapTextFiles = new string[] { "Map0.txt", "Map1.txt", "Map2.txt" };
+        private char[][,] allMapContents = new char[3][,];
 
-        public Player Hero = Hero;
-        public RangedEnemy[] Rangers = Rangers;
-        public MageEnemy[] Mages = Mages;
-        public MeleeEnemy[] Slime = Slimes;
-        public Potions[] potions = potions;
-        public Money[] money = money;
-        public Traps[] trap = trap;
+
+        public MapLegendColours legendColours;
+        public Player Hero;
+        public RangedEnemy[] Rangers;
+        public MageEnemy[] Mages;
+        public MeleeEnemy[] Slime;
+        public Potions[] potions;
+        public Money[] money;
+        public Traps[] trap;
+
+        public void Init(MapLegendColours legendColours, Player Hero, RangedEnemy[] Rangers, MageEnemy[] Mages, MeleeEnemy[] Slime,
+        Potions[] potions, Money[] money, Traps[] trap)
+        {
+            this.legendColours = legendColours;
+            this.Hero = Hero;
+            this.Rangers = Rangers;
+            this.Mages = Mages;
+            this.Slime = Slime;
+            this.potions = potions;
+            this.money = money;
+            this.trap = trap;
+        }
 
         public char[][,] AllMapContents
         {
@@ -167,6 +179,57 @@ namespace RPGAlpha_AdrianDorey
             }
             if (mapLevel != previousLevel)
                 previousLevel = mapLevel;
+        }
+
+        public bool CheckMapForEmptySpace(int x, int y, int mapLevel)
+        {
+            if (Hero.pos.x == x && Hero.pos.y == y)
+                return false;
+
+            switch (mapLevel)
+            {
+                case 0:
+                    if (Rangers[0].pos.x == x && Rangers[0].pos.y == y)
+                        return false;
+                    if (Rangers[1].pos.x == x && Rangers[1].pos.y == y)
+                        return false;
+                    if (potions[0].pos.x == x && potions[0].pos.y == y)
+                        return false;
+                    if (money[0].pos.x == x && money[0].pos.y == y)
+                        return false;
+                    break;
+                case 1:
+                    if (Rangers[2].pos.x == x && Rangers[2].pos.y == y)
+                        return false;
+                    if (Mages[0].pos.x == x && Mages[0].pos.y == y)
+                        return false;
+                    if (Mages[1].pos.x == x && Mages[1].pos.y == y)
+                        return false;
+                    if (potions[1].pos.x == x && potions[1].pos.y == y)
+                        return false;
+                    if (money[1].pos.x == x && money[1].pos.y == y)
+                        return false;
+                    if (money[2].pos.x == x && money[2].pos.y == y)
+                        return false;
+                    break;
+                case 2:
+                    if (Mages[2].pos.x == x && Mages[2].pos.y == y)
+                        return false;
+                    if (Slime[0].pos.x == x && Slime[0].pos.y == y)
+                        return false;
+                    if (Slime[1].pos.x == x && Slime[1].pos.y == y)
+                        return false;
+                    if (Slime[2].pos.x == x && Slime[2].pos.y == y)
+                        return false;
+                    if (potions[2].pos.x == x && potions[2].pos.y == y)
+                        return false;
+                    if (potions[3].pos.x == x && potions[3].pos.y == y)
+                        return false;
+                    if (money[3].pos.x == x && money[3].pos.y == y)
+                        return false;
+                    break;
+            }
+            return true;
         }
     }
 }

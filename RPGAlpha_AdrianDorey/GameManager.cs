@@ -37,7 +37,7 @@ namespace RPGAlpha_AdrianDorey
                 traps[i] = new Traps();
 
             legendColours = new MapLegendColours(Hero, Rangers[0], Mages[0], Slime[0], money[0], traps[0], potion[0]);
-            buildMap = new BuildMap(legendColours, Hero, Rangers, Mages, Slime, potion, money, traps);
+            buildMap = new BuildMap();
             mapPositions = new MapPositions(Hero, Rangers, Mages, Slime, potion, money, traps, buildMap);
             hUD = new HUD();
             log = new GameLog();
@@ -47,16 +47,19 @@ namespace RPGAlpha_AdrianDorey
         {
             //Initializing
             hUD.Init(Hero, Rangers, Mages, Slime, money, buildMap);
+            buildMap.Init(legendColours, Hero, Rangers, Mages, Slime, potion, money, traps);
             buildMap.MapInit();
             mapPositions.InitializeCharacterPositions();
             Hero.Init(buildMap, Rangers, Mages, Slime, money, potion, traps);
             log.Init(Hero, Rangers, Mages, Slime, money, potion, traps);
             for (int i = 0; i < 3; i++)
             {
-                Rangers[i].EnemyInit(Hero, buildMap, traps, mapPositions, log);
-                Mages[i].EnemyInit(Hero, buildMap, traps, mapPositions, log);
-                Slime[i].EnemyInit(Hero, buildMap, traps, mapPositions, log);
+                Rangers[i].EnemyInit(Hero, buildMap, traps, log);
+                Mages[i].EnemyInit(Hero, buildMap, traps, log);
+                Slime[i].EnemyInit(Hero, buildMap, traps, log);
             }
+            TutorialText();
+
             while (!gameOver)
             {
                 buildMap.CheckMapChange();
@@ -83,23 +86,31 @@ namespace RPGAlpha_AdrianDorey
                         Slime[2].MeleeMovement();
                         break;
                 }
-
-                
+                CheckGameOver();
             }
+            
             WriteGameToScreen();
 
             if (!Hero.healthSystem.dead)
-                Console.WriteLine(Hero.name + " has won! Press any key to exit");
+                Console.WriteLine(Hero.name + " has won! Press enter to exit");
             else
-                Console.WriteLine(Hero.name + " has died, press any key to exit");
+                Console.WriteLine(Hero.name + " has died, press enter to exit");
 
-            Console.ReadKey(true);
+            ConsoleKeyInfo input = Console.ReadKey();
+            while(input.Key != ConsoleKey.Enter)
+            {
+                Console.WriteLine("Press Enter");
+                input = Console.ReadKey();
+            }
+                System.Environment.Exit(0);
 
         }
 
         public void CheckGameOver()
         {
             if (AreAllEnemiesDead(Rangers) && AreAllEnemiesDead(Mages) && AreAllEnemiesDead(Slime) && IsMoneyColleceted(money))
+                gameOver = true;
+            if (Hero.healthSystem.dead)
                 gameOver = true;
         }
 
@@ -115,17 +126,51 @@ namespace RPGAlpha_AdrianDorey
 
         private void WriteGameToScreen()
         {
-            if (Hero.healthSystem.dead)
-                gameOver = true;
-            else
-                CheckGameOver();
+            for (int i = 0; i < 4; i++)
+            {
+                Console.Clear(); // Clear the console before updating the text
+                Console.SetCursorPosition(0, 0);
+                System.Threading.Thread.Sleep(5); // Adjust the sleep time as needed
+            }
 
-            Console.Clear();
             Console.Write("Text Based RPG Alpha \n");
             hUD.ShowHUD();
             buildMap.DrawMap();
             legendColours.DisplayLegend();
             log.PrintGameLog();
+        }
+
+        private void TutorialText()
+        {
+            Console.Write("Text Based RPG Alpha \n");
+            Console.WriteLine();
+            Console.WriteLine("Move:");
+            DisplaySymbolsInColumns("Up   ", "W");
+            DisplaySymbolsInColumns("Up-Left", "Q");
+            Console.WriteLine();
+            DisplaySymbolsInColumns("Down ", "S");
+            DisplaySymbolsInColumns("Up-Right", "E");
+            Console.WriteLine();
+            DisplaySymbolsInColumns("Left ", "A");
+            DisplaySymbolsInColumns("Down-Left", "Z");
+            Console.WriteLine();
+            DisplaySymbolsInColumns("Right", "D");
+            DisplaySymbolsInColumns("Down-Right", "C");
+            Console.WriteLine();
+            Console.WriteLine();
+
+            Console.WriteLine("Press any key to continue");
+            Console.ReadKey(true);
+        }
+
+        private void DisplaySymbolsInColumns(string direction, string description)
+        {
+            Console.Write($"{direction} = {description}");
+
+            for (int i = 0; i < 5; i++)
+            {
+                Console.Write(" ");
+            }
         }
     }
 }

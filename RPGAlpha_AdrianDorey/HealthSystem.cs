@@ -12,7 +12,6 @@ namespace RPGAlpha_AdrianDorey
         public bool cannotHeal;
         public bool healed;
 
-
         public void TakeDamage(int damage)
         {
             health -= damage;

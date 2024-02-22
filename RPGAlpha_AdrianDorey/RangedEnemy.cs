@@ -4,7 +4,7 @@ namespace RPGAlpha_AdrianDorey
 {
     internal class RangedEnemy : Enemy
     {
-        int RangerDamage = 5;
+        int RangerDamage = 3;
 
         public RangedEnemy(Random random)
         {
@@ -28,27 +28,27 @@ namespace RPGAlpha_AdrianDorey
                     newDX = pos.x + dx;
                     newDY = pos.y + dy;
 
-                    if (PlayerDistance() <= 5)
-                        AttackPlayer();
-                    else
+                }
+                if (PlayerDistance() <= 5)
+                    AttackPlayer();
+                else
+                {
+                    if (CheckValidPlacement(newDX, newDY, buildMap.mapLevel))
                     {
-                        if (mapPositions.CheckValidPlacement(newDX, newDY, buildMap.mapLevel))
-                        {
-                            pos.x = newDX;
-                            pos.y = newDY;
+                        pos.x = newDX;
+                        pos.y = newDY;
 
-                            switch (buildMap.mapLevel)
-                            {
-                                case 0:
-                                    CheckForTraps(trap, 0, 1, newDX, newDY);
-                                    break;
-                                case 1:
-                                    CheckForTraps(trap, 1, 2, newDX, newDY);
-                                    break;
-                                case 2:
-                                    CheckForTraps(trap, 1, 2, newDX, newDY);
-                                    break;
-                            }
+                        switch (buildMap.mapLevel)
+                        {
+                            case 0:
+                                CheckForTraps(trap, 0, 1, newDX, newDY);
+                                break;
+                            case 1:
+                                CheckForTraps(trap, 1, 2, newDX, newDY);
+                                break;
+                            case 2:
+                                CheckForTraps(trap, 1, 2, newDX, newDY);
+                                break;
                         }
                     }
                 }
@@ -58,7 +58,7 @@ namespace RPGAlpha_AdrianDorey
         private void AttackPlayer()
         {
             Hero.healthSystem.TakeDamage(RangerDamage);
-            log.enemyAttack = " by Ranger arrow";
+            log.enemyAttack = $" by Ranger arrow - {RangerDamage} damage";
         }
     }
 }

@@ -28,28 +28,41 @@ namespace RPGAlpha_AdrianDorey
         }
         public void DisplayLegend() // displays legend on the bottom of the map.
         {
-            Console.Write("+--------------------------+" + "\n");
-            Console.Write("Map Legend:" + "\n");
-            DisplaySymbol(Hero.character, Hero.name);
-            DisplaySymbol(Rangers.character, Rangers.name);
-            DisplaySymbol(Mage.character, Mage.name);
-            DisplaySymbol(Slime.character, Slime.name);
-            DisplaySymbol(money.character, money.name);
-            DisplaySymbol(potion.character, potion.name);
-            DisplaySymbol(trap.character, trap.name);
-            DisplaySymbol('*', "Next Area" );
-            DisplaySymbol('~', "Deep Water");
-            DisplaySymbol('^', "Mountains");
-            DisplaySymbol('#', "Walls");
-            Console.WriteLine("+--------------------------+");
+            Console.WriteLine("+-----------------------------------------------------------+");
+            Console.WriteLine("Map Legend:");
+            DisplaySymbolsInColumns(Hero.character, Hero.name);
+            Console.WriteLine();
+            DisplaySymbolsInColumns(Rangers.character, Rangers.name);
+            DisplaySymbolsInColumns(Mage.character, Mage.name);
+            DisplaySymbolsInColumns(Slime.character, Slime.name);
+            Console.WriteLine();
+            DisplaySymbolsInColumns(money.character, money.name);
+            DisplaySymbolsInColumns(potion.character, potion.name);
+            DisplaySymbolsInColumns(trap.character, trap.name);
+            Console.WriteLine();
+            DisplaySymbolsInColumns('*', "Next Area");
+            DisplaySymbolsInColumns('~', "Deep Water");
+            Console.WriteLine();
+            DisplaySymbolsInColumns('^', "Mountains");
+            DisplaySymbolsInColumns('#', "Walls");
+            Console.WriteLine();
+            Console.WriteLine("+-----------------------------------------------------------+");
         }
 
-        private void DisplaySymbol(char symbol, string description)
+        private void DisplaySymbolsInColumns(char symbol, string description)
         {
             MapColor(symbol);
             Console.Write(symbol);
             Console.ResetColor();
-            Console.Write($" = {description}" + "\n");
+            Console.Write($" = {description}");
+
+            int spacesCount = 20 - description.Length; // Adjust this number based on your desired column width
+
+            // Add spaces to align the columns
+            for (int i = 0; i < spacesCount; i++)
+            {
+                Console.Write(" ");
+            }
         }
 
         public void MapColor(char c)    // handles map color
@@ -94,7 +107,6 @@ namespace RPGAlpha_AdrianDorey
                 case '*': // next area
                     Console.ForegroundColor = ConsoleColor.Yellow;
                     break;
-
             }
         }
     }

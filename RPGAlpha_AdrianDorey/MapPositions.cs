@@ -65,7 +65,7 @@ namespace RPGAlpha_AdrianDorey
             {
                 x = random.Next(0, buildMap.GetMapContent(levelNumber).GetLength(1));
                 y = random.Next(0, buildMap.GetMapContent(levelNumber).GetLength(0));
-            } while (!CheckValidPlacement(x, y, levelNumber));
+            } while (!CheckInitialPlacement(x, y, levelNumber));
 
             character.pos = new Point2D { x = x, y = y };
         }
@@ -77,12 +77,12 @@ namespace RPGAlpha_AdrianDorey
             {
                 x = random.Next(0, buildMap.GetMapContent(levelNumber).GetLength(1));
                 y = random.Next(0, buildMap.GetMapContent(levelNumber).GetLength(0));
-            } while (!CheckValidPlacement(x, y, levelNumber));
+            } while (!CheckInitialPlacement(x, y, levelNumber));
 
             item.pos = new Point2D { x = x, y = y };
         }
 
-        public bool CheckValidPlacement(int x, int y, int levelNumber)
+        private bool CheckInitialPlacement(int x, int y, int levelNumber)
         {
             return buildMap.CheckBoundaries(x, y, levelNumber) && IsEmptySpace(x, y, levelNumber) &&
                 buildMap.GetMapContent(levelNumber)[y, x] != '*';
