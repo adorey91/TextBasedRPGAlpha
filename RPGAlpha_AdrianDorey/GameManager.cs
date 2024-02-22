@@ -128,12 +128,11 @@ namespace RPGAlpha_AdrianDorey
         {
             Console.SetWindowSize(80, 50);
             Console.CursorVisible = false;
-            for (int i = 0; i < 4; i++)
-            {
-                Console.Clear(); // Clear the console before updating the text
-                Console.SetCursorPosition(0, 0);
-                System.Threading.Thread.Sleep(5); // Adjust the sleep time as needed
-            }
+            
+            Console.Clear(); // Clear the console before updating the text
+            Console.SetCursorPosition(0, 0);
+            System.Threading.Thread.Sleep(TimeSpan.FromMilliseconds(200));
+
 
             Console.Write("Text Based RPG Alpha \n");
             hUD.ShowHUD();
