@@ -43,11 +43,11 @@ namespace RPGAlpha_AdrianDorey
         {
             health += hp;
             healed = true;
-            //if (health >= 100)
-            //{
-            //    health = 100;
-            //    cannotHeal = true;
-            //}
+            if (health >= 100)
+            {
+                health = 100;
+                cannotHeal = true;
+            }
 
         }
 

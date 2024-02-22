@@ -188,9 +188,6 @@ namespace RPGAlpha_AdrianDorey
 
         public bool CheckMapForEmptySpace(int x, int y, int mapLevel)
         {
-            if (Hero.pos.x == x && Hero.pos.y == y)
-                return false;
-
             switch (mapLevel)
             {
                 case 0:

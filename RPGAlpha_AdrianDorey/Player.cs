@@ -21,8 +21,8 @@ namespace RPGAlpha_AdrianDorey
         public Player()
         {
             healthSystem = new HealthSystem();
-            //healthSystem.health = 100;
-            healthSystem.health = 500; // testing purposes
+            healthSystem.health = 100;
+            //healthSystem.health = 500; // testing purposes
             character = 'H';
         }
 

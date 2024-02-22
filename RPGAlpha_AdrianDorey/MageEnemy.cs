@@ -68,7 +68,7 @@ namespace RPGAlpha_AdrianDorey
                 Random random = new();
                 x = random.Next(0, buildMap.GetMapContent(buildMap.mapLevel).GetLength(1));
                 y = random.Next(0, buildMap.GetMapContent(buildMap.mapLevel).GetLength(0));
-            } while (!CheckValidPlacement(x, y, buildMap.mapLevel));
+            } while (!CheckValidPlacement(x, y, buildMap.mapLevel) && x != Hero.pos.x && y != Hero.pos.y);
 
             pos = new Point2D { x = x, y = y };
         }

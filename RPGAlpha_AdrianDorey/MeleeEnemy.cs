@@ -20,9 +20,9 @@ namespace RPGAlpha_AdrianDorey
 
         public void MeleeMovement() // moves randomly unless close enough to the player.
         {
-            if (!healthSystem.dead)
+            if (!healthSystem.mapDead)
             {
-                if (PlayerDistance() <= 3)
+                if (PlayerDistance() < 4)
                 {
                     dx = Math.Sign(Hero.pos.x - pos.x);
                     dy = Math.Sign(Hero.pos.y - pos.y);
@@ -30,7 +30,7 @@ namespace RPGAlpha_AdrianDorey
                     newDX = pos.x + dx;
                     newDY = pos.y + dy;
 
-                    if (!CheckValidPlacement(newDX, newDY, buildMap.mapLevel))
+                    if (CheckValidPlacement(newDX, newDY, buildMap.mapLevel))
                     {
                         if (newDX == Hero.pos.x && newDY == Hero.pos.y)
                             AttackPlayer();
@@ -62,29 +62,25 @@ namespace RPGAlpha_AdrianDorey
                     while (!CheckValidPlacement(newDX, newDY, buildMap.mapLevel))
                         Move(1);
 
-                    if (newDX == Hero.pos.x && newDY == Hero.pos.y)
-                        AttackPlayer();
-                    else
-                    {
-                        pos.x = newDX;
-                        pos.y = newDY;
+                    pos.x = newDX;
+                    pos.y = newDY;
 
-                        switch (buildMap.mapLevel)
-                        {
-                            case 0:
-                                CheckForTraps(trap, 0, 1, newDX, newDY);
-                                break;
-                            case 1:
-                                CheckForTraps(trap, 1, 2, newDX, newDY);
-                                break;
-                            case 2:
-                                CheckForTraps(trap, 1, 2, newDX, newDY);
-                                break;
-                        }
-                        CheckFloor(newDX, newDY);
+                    switch (buildMap.mapLevel)
+                    {
+                        case 0:
+                            CheckForTraps(trap, 0, 1, newDX, newDY);
+                            break;
+                        case 1:
+                            CheckForTraps(trap, 1, 2, newDX, newDY);
+                            break;
+                        case 2:
+                            CheckForTraps(trap, 1, 2, newDX, newDY);
+                            break;
                     }
+                    CheckFloor(newDX, newDY);
                 }
             }
+
         }
 
         private void AttackPlayer()
