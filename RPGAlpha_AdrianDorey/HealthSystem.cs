@@ -11,6 +11,7 @@ namespace RPGAlpha_AdrianDorey
         public bool mapDead;
         public bool cannotHeal;
         public bool healed;
+        public bool floorDamage;
 
         public void TakeDamage(int damage)
         {
@@ -25,15 +26,28 @@ namespace RPGAlpha_AdrianDorey
             }
         }
 
+        public void FloorDamage()
+        {
+            health -= 5;
+            floorDamage = true;
+
+            if (health <= 0)
+            {
+                health = 0;
+                mapDead = true;
+                dead = true;
+            }
+        }
+
         public void Heal(int hp)
         {
             health += hp;
             healed = true;
-            if (health >= 100)
-            {
-                health = 100;
-                cannotHeal = true;
-            }
+            //if (health >= 100)
+            //{
+            //    health = 100;
+            //    cannotHeal = true;
+            //}
 
         }
 

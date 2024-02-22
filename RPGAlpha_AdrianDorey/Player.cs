@@ -21,7 +21,8 @@ namespace RPGAlpha_AdrianDorey
         public Player()
         {
             healthSystem = new HealthSystem();
-            healthSystem.health = 100;
+            //healthSystem.health = 100;
+            healthSystem.health = 500; // testing purposes
             character = 'H';
         }
 
@@ -58,6 +59,7 @@ namespace RPGAlpha_AdrianDorey
                             pos.y = newY;
 
                             CheckTraps(newX, newY);
+                            CheckFloor(newX, newY);
                         }
                         itemPickedUp = false;
                         attackedEnemy = false;

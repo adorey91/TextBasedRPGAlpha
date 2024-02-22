@@ -181,6 +181,11 @@ namespace RPGAlpha_AdrianDorey
                 previousLevel = mapLevel;
         }
 
+        public bool CheckPoisonFloor(int x, int y)
+        {
+            return GetMapContent(mapLevel)[y,x] == 'P';
+        }
+
         public bool CheckMapForEmptySpace(int x, int y, int mapLevel)
         {
             if (Hero.pos.x == x && Hero.pos.y == y)

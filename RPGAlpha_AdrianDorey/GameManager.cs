@@ -131,7 +131,6 @@ namespace RPGAlpha_AdrianDorey
             
             Console.Clear(); // Clear the console before updating the text
             Console.SetCursorPosition(0, 0);
-            System.Threading.Thread.Sleep(TimeSpan.FromMilliseconds(200));
 
 
             Console.Write("Text Based RPG Alpha \n");

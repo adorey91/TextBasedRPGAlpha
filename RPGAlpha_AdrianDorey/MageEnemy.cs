@@ -33,6 +33,21 @@ namespace RPGAlpha_AdrianDorey
                     else
                         moveCount++;
                 }
+                
+                CheckFloor(newDX, newDY);
+
+                switch (buildMap.mapLevel)
+                {
+                    case 0:
+                        CheckForTraps(trap, 0, 1, newDX, newDY);
+                        break;
+                    case 1:
+                        CheckForTraps(trap, 1, 2, newDX, newDY);
+                        break;
+                    case 2:
+                        CheckForTraps(trap, 1, 2, newDX, newDY);
+                        break;
+                }
             }
         }
 

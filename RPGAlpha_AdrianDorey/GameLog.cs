@@ -37,6 +37,7 @@ namespace RPGAlpha_AdrianDorey
             LogPickUpText();
             LogHealingText();
             LogEnemyDeathText();
+            LogPoisonFloorText();
             Console.WriteLine();
         }
 
@@ -61,6 +62,30 @@ namespace RPGAlpha_AdrianDorey
                 {
                     Console.Write($"Attacked {enemies[i].name}{i} - {Hero.damageAmount} damage \n");
                     enemies[i].healthSystem.hurt = false;
+                }
+            }
+        }
+
+        private void LogPoisonFloorText()
+        {
+            if (Hero.healthSystem.floorDamage)
+            {
+                Console.Write($"{Hero.name} hurt by poison spill \n");
+                Hero.healthSystem.floorDamage = false;
+            }
+            CheckAndLogEnemyFloorStatus(Rangers);
+            CheckAndLogEnemyFloorStatus(Mages);
+            CheckAndLogEnemyFloorStatus(Slime);
+        }
+
+        private void CheckAndLogEnemyFloorStatus(Enemy[] enemies)
+        {
+            for (int i = 0; i < enemies.Length; i++)
+            {
+                if (enemies[i].healthSystem.floorDamage)
+                {
+                    Console.Write($"{enemies[i].name}{i} hurt by poison spill \n");
+                    enemies[i].healthSystem.floorDamage = false;
                 }
             }
         }

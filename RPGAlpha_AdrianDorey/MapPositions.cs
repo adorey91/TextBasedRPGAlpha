@@ -85,7 +85,7 @@ namespace RPGAlpha_AdrianDorey
         private bool CheckInitialPlacement(int x, int y, int levelNumber)
         {
             return buildMap.CheckBoundaries(x, y, levelNumber) && IsEmptySpace(x, y, levelNumber) &&
-                buildMap.GetMapContent(levelNumber)[y, x] != '*';
+                buildMap.GetMapContent(levelNumber)[y, x] != '*' && buildMap.GetMapContent(levelNumber)[y, x] != 'P';
         }
 
         private bool IsEmptySpace(int x, int y, int mapLevel)

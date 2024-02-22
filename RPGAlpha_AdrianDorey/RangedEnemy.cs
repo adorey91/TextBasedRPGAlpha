@@ -38,6 +38,8 @@ namespace RPGAlpha_AdrianDorey
                         pos.x = newDX;
                         pos.y = newDY;
 
+                        CheckFloor(newDX, newDY);
+
                         switch (buildMap.mapLevel)
                         {
                             case 0:

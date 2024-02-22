@@ -42,6 +42,7 @@ namespace RPGAlpha_AdrianDorey
             Console.WriteLine();
             DisplaySymbolsInColumns('*', "Next Area");
             DisplaySymbolsInColumns('~', "Deep Water");
+            DisplaySymbolsInColumns('P', "Poison Spill");
             Console.WriteLine();
             DisplaySymbolsInColumns('^', "Mountains");
             DisplaySymbolsInColumns('#', "Walls");
@@ -106,6 +107,10 @@ namespace RPGAlpha_AdrianDorey
                     break;
                 case '*': // next area
                     Console.ForegroundColor = ConsoleColor.Yellow;
+                    break;
+                case 'P': // poison floor
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.BackgroundColor = ConsoleColor.DarkGreen;
                     break;
             }
         }

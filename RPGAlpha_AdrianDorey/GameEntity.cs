@@ -19,5 +19,11 @@ namespace RPGAlpha_AdrianDorey
                 }
             }
         }
+
+        public void CheckFloor(int newX, int newY)
+        {
+            if (buildMap.CheckPoisonFloor(newX, newY))
+                healthSystem.FloorDamage();
+        }
     }
 }
